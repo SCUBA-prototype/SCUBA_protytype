@@ -1,2 +1,3 @@
-import '../imports/startup/client/Startup';
+import '/imports/startup/both';
+import '../imports/startup/client/';
 import './style.css';

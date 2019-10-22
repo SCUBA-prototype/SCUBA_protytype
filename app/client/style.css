@@ -1,0 +1,55 @@
+.landing-background {
+  background: url('/images/divebackground.jpeg') no-repeat center center;
+  background-size: cover;
+  height: 1500px;
+}
+
+.main-text{
+  color: white;
+  text-shadow: 2px 2px 4px #000000;
+  font-size: 125px;
+  line-height: 2;
+  font-weight: 600;
+  letter-spacing: -0.02em;
+  font-family: "Fira Sans", sans-serif;
+  padding-top: 10px;
+  padding-bottom: 5px;
+}
+
+.side-text{
+  color: white;
+  text-shadow: 2px 2px 4px #000000;
+  font-size: 30px;
+  line-height: 1;
+  font-weight: 600;
+  letter-spacing: -0.02em;
+  font-family: "Fira Sans", sans-serif;
+  padding-top: 5px;
+  padding-bottom: 5px;
+}
+
+.large.text {
+  color: white;
+  font-size: 10rem;
+}
+
+.description{
+  padding-top: 50px;
+  padding-bottom: 50px;
+}
+
+.title-main{
+  font-size: 60px;
+  margin-top: 10px;
+}
+
+.sticky-footer{
+  position:fixed;
+  left:0;
+  bottom:0;
+  right:0;
+}
+
+div.ui.search > div.results{
+  left: 33.75%;
+}
