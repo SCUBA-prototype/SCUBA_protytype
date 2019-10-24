@@ -10,10 +10,17 @@ import { Bert } from 'meteor/themeteorchef:bert';
 /** Renders a single row in the List Stuff (Admin) table. See pages/ListStuffAdmin.jsx. */
 class Dive extends React.Component {
 
+  let currentDive = [
+      noDecompressionLimit: '-1',
+      currentPressureGroup: 'A',
+      diveNumber: '-1'
+  ];
+
     constructor(props) {
         super(props);
         this.onClick = this.onClick.bind(this);
     }
+
 
     onClick() {
         // eslint-disable-next-line
