@@ -1,5 +1,5 @@
 import { Mongo } from 'meteor/mongo';
-import SimpleSchema from 'simple-schema';
+import SimpleSchema from 'simpl-schema';
 import { Tracker } from 'meteor/tracker';
 
 /** Create a Meteor collection. */
@@ -7,10 +7,11 @@ const Dives = new Mongo.Collection('Dives');
 
 /** Create a schema to constrain the structure of documents associated with this collection. */
 const DiveSchema = new SimpleSchema({
-  depth: String,
-  bottomTime: String,
-  surfaceIntervalTime: String,
-  startingPressureGroup: String,
+  name: String,
+  depth: {type: Number, defaultValue: 0},
+  bottomTime: {type: Number, defaultValue: 0},
+  surfaceIntervalTime: {type: Number, defaultValue: 0},
+  startingPressureGroup: {type: Number, defaultValue: 0},
 }, { tracker: Tracker });
 
 /** Attach this schema to the collection. */

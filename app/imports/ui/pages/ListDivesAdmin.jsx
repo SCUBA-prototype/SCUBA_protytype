@@ -2,6 +2,7 @@ import React from 'react';
 import { Meteor } from 'meteor/meteor';
 import { Container, Header, Loader, Card } from 'semantic-ui-react';
 import { Dives } from '/imports/api/dive/dive';
+import { diveList } from '/imports/api/dive/diveList';
 import Dive from '/imports/ui/components/Dives';
 import { withTracker } from 'meteor/react-meteor-data';
 import PropTypes from 'prop-types';
@@ -21,7 +22,7 @@ class ListDivesAdmin extends React.Component {
             <Container style={divStyle}>
                 <Header as="h2" textAlign="center">Dives List</Header>
                 <Card.Group centered>
-                    {this.props.dives.map((dive, index) => <Dive
+                    {this.diveList.map((dive, index) => <Dive
                         dive={dive}
                         key={index}
                     />)}
@@ -34,14 +35,16 @@ class ListDivesAdmin extends React.Component {
 /** Require an array of Stuff documents in the props. */
 ListDivesAdmin.propTypes = {
     dives: PropTypes.array.isRequired,
+    diveList: PropTypes.array.isRequired,
     ready: PropTypes.bool.isRequired,
 };
 
 /** withTracker connects Meteor data to React components. https://guide.meteor.com/react.html#using-withTracker */
 export default withTracker(() => {
     // Get access to Stuff documents.
-    const subscription = Meteor.subscribe('Dive');
+    const subscription = Meteor.subscribe('DiveList');
     return {
+        diveList: diveList.find({}, { sort: { createdAt: -1 }}).fetch(),
         dives: Dives.find({}).fetch(),
         ready: subscription.ready(),
     };

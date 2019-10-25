@@ -4,9 +4,6 @@ import { Grid, Segment, Header } from 'semantic-ui-react';
 import AutoForm from 'uniforms-semantic/AutoForm';
 import TextField from 'uniforms-semantic/TextField';
 import NumField from 'uniforms-semantic/NumField';
-import SelectField from 'uniforms-semantic/SelectField';
-import SubmitField from 'uniforms-semantic/SubmitField';
-import HiddenField from 'uniforms-semantic/HiddenField';
 import ErrorsField from 'uniforms-semantic/ErrorsField';
 import { Bert } from 'meteor/themeteorchef:bert';
 import { Meteor } from 'meteor/meteor';
@@ -34,9 +31,9 @@ class AddDiveAdmin extends React.Component {
 
     /** On submit, insert the data. */
     submit(data) {
-        const { name, quantity, condition } = data;
+        const { name, depth, bottomTime, surfaceIntervalTime, startingPressureGroup } = data;
         const owner = Meteor.user().username;
-        Dives.insert({ name, quantity, condition, owner }, this.insertCallback);
+        Dives.insert({ name, depth, bottomTime, surfaceIntervalTime, startingPressureGroup }, this.insertCallback);
     }
 
     /** Render the form. Use Uniforms: https://github.com/vazco/uniforms */
@@ -44,15 +41,16 @@ class AddDiveAdmin extends React.Component {
         return (
             <Grid container centered>
                 <Grid.Column>
-                    <Header as="h2" textAlign="center">Add Restaurant</Header>
+                    <Header as="h2" textAlign="center">Add Dive</Header>
+                    <Header as="h3" textAlign="center">How do you plan on diving today? Let us help.</Header>
                     <AutoForm ref={(ref) => { this.formRef = ref; }} schema={DiveSchema} onSubmit={this.submit}>
                         <Segment>
                             <TextField name='name'/>
-                            <NumField name='quantity' decimal={false}/>
-                            <SelectField name='condition'/>
-                            <SubmitField value='Submit'/>
+                            <NumField name='depth' decimal={false}/>
+                            <NumField name='bottomTime' decimal={false}/>
+                            <NumField name='surfaceIntervalTime' decimal={false}/>
+                            <NumField name='startingPressureGroup' decimal={false}/>
                             <ErrorsField/>
-                            <HiddenField name='owner' value='fakeuser@foo.com'/>
                         </Segment>
                     </AutoForm>
                 </Grid.Column>
