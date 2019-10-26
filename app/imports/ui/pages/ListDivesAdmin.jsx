@@ -1,51 +1,60 @@
 import React from 'react';
-import { Meteor } from 'meteor/meteor';
-import { Container, Header, Loader, Card } from 'semantic-ui-react';
-import { Dives } from '/imports/api/dive/dive';
-import { diveList } from '/imports/api/dive/diveList';
-import Dive from '/imports/ui/components/Dives';
-import { withTracker } from 'meteor/react-meteor-data';
+import {Meteor} from 'meteor/meteor';
+import {Container, Header, Loader, Card, Grid, Image, Button, table} from 'semantic-ui-react';
+import {Dives} from '/imports/api/dive/dive';
+import {withTracker} from 'meteor/react-meteor-data';
 import PropTypes from 'prop-types';
+import {Link} from "react-router-dom";
 
 /** Renders a table containing all of the Stuff documents. Use <StuffItem> to render each row. */
-class ListDivesAdmin extends React.Component {
+class ListDives extends React.Component {
 
-    /** If the subscription(s) have been received, render the page, otherwise show a loading icon. */
     render() {
-        return (this.props.ready) ? this.renderPage() : <Loader active>Getting data</Loader>;
-    }
-
-    /** Render the page once subscriptions have been received. */
-    renderPage() {
-        const divStyle = { paddingBottom: '85px' };
+        const divStyle = {paddingBottom: '5px', paddingTop: '5px'};
         return (
-            <Container style={divStyle}>
-                <Header as="h2" textAlign="center">Dives List</Header>
-                <Card.Group centered>
-                    {this.diveList.map((dive, index) => <Dive
-                        dive={dive}
-                        key={index}
-                    />)}
-                </Card.Group>
-            </Container>
+            <table className="ui striped table">
+                <thead>
+                <tr>
+                    <th>Dive Name</th>
+                    <th>Dive Date Planned</th>
+                    <th>Gas Used</th>
+                    <th># of Dives</th>
+                    <th> </th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr>
+                    <td>Waikiki Beach Dive</td>
+                    <td>September 14, 2013</td>
+                    <td>Air</td>
+                    <td>3</td>
+                    <td><Button color={'red'}> View </Button></td>
+                </tr>
+                <tr>
+                    <td>Family Dive @ Bahamas</td>
+                    <td>January 11, 2014</td>
+                    <td>Air</td>
+                    <td>3</td>
+                    <td><Button color={'red'}> View </Button></td>
+                </tr>
+                <tr>
+                    <td>Waimea Bay</td>
+                    <td>May 11, 2014</td>
+                    <td>Air</td>
+                    <td>3</td>
+                    <td><Button color={'red'}> View </Button></td>
+                </tr>
+                <tr>
+                    <td>Waimea Bay</td>
+                    <td>September 14, 2013</td>
+                    <td>Air</td>
+                    <td>3</td>
+                    <td><Button color={'red'}> View </Button></td>
+                </tr>
+                </tbody>
+            </table>
         );
     }
 }
 
-/** Require an array of Stuff documents in the props. */
-ListDivesAdmin.propTypes = {
-    dives: PropTypes.array.isRequired,
-    diveList: PropTypes.array.isRequired,
-    ready: PropTypes.bool.isRequired,
-};
-
-/** withTracker connects Meteor data to React components. https://guide.meteor.com/react.html#using-withTracker */
-export default withTracker(() => {
-    // Get access to Stuff documents.
-    const subscription = Meteor.subscribe('DiveList');
-    return {
-        diveList: diveList.find({}, { sort: { createdAt: -1 }}).fetch(),
-        dives: Dives.find({}).fetch(),
-        ready: subscription.ready(),
-    };
-})(ListDivesAdmin);
+export default ListDives;

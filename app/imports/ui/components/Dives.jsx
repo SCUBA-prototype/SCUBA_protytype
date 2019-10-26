@@ -3,7 +3,6 @@ import { Card, Image, Button, Grid } from 'semantic-ui-react';
 import PropTypes from 'prop-types';
 import { withRouter, Link } from 'react-router-dom';
 import { Dives } from '/imports/api/dive/dive';
-import { CurrentDive } from '/imports/api/dive/CurrentDive';
 import { Roles } from 'meteor/alanning:roles';
 import { Meteor } from 'meteor/meteor';
 import { Bert } from 'meteor/themeteorchef:bert';

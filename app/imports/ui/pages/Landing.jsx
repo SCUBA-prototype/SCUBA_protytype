@@ -14,9 +14,9 @@ class Landing extends React.Component {
                         <Grid.Row className="title-main">
                             <p className="main-text">
                                 SCUBA
-                                <p className="side-text">
-                                    prototype
-                                </p>
+                            </p>
+                            <p className="side-text">
+                                prototype
                             </p>
                         </Grid.Row>
                     </Grid.Column>

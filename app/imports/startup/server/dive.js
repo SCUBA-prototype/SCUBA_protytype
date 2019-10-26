@@ -17,7 +17,7 @@ if (Dives.find().count() === 0) {
 }
 
 /** This subscription publishes only the documents associated with the logged in user */
-Meteor.publish('Stuff', function publish() {
+Meteor.publish('Dive', function publish() {
   if (this.userId) {
     const username = Meteor.users.findOne(this.userId).username;
     return Dives.find({ owner: username });
@@ -26,7 +26,7 @@ Meteor.publish('Stuff', function publish() {
 });
 
 /** This subscription publishes all documents regardless of user, but only if the logged in user is the Admin. */
-Meteor.publish('StuffAdmin', function publish() {
+Meteor.publish('DiveAdmin', function publish() {
   if (this.userId && Roles.userIsInRole(this.userId, 'admin')) {
     return Dives.find();
   }

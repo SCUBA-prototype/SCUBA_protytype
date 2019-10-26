@@ -8,6 +8,7 @@ import ErrorsField from 'uniforms-semantic/ErrorsField';
 import { Bert } from 'meteor/themeteorchef:bert';
 import { Meteor } from 'meteor/meteor';
 
+
 /** Renders the Page for adding a document. */
 class AddDiveAdmin extends React.Component {
 
@@ -49,7 +50,7 @@ class AddDiveAdmin extends React.Component {
                             <NumField name='depth' decimal={false}/>
                             <NumField name='bottomTime' decimal={false}/>
                             <NumField name='surfaceIntervalTime' decimal={false}/>
-                            <NumField name='startingPressureGroup' decimal={false}/>
+                            <TextField name='startingPressureGroup' inputProps={{maxLength:1}}/>
                             <ErrorsField/>
                         </Segment>
                     </AutoForm>
