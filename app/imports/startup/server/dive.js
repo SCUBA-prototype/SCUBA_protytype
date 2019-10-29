@@ -10,14 +10,14 @@ function addData(data) {
 
 /** Initialize the collection if empty. */
 if (Dives.find().count() === 0) {
-  if (Meteor.settings.defaultData) {
+  if (Meteor.settings.defaultDives) {
     console.log('Creating default data.');
-    Meteor.settings.defaultData.map(data => addData(data));
+    Meteor.settings.defaultDives.map(data => addData(data));
   }
 }
 
 /** This subscription publishes only the documents associated with the logged in user */
-Meteor.publish('Stuff', function publish() {
+Meteor.publish('Dives', function publish() {
   if (this.userId) {
     const username = Meteor.users.findOne(this.userId).username;
     return Dives.find({ owner: username });
@@ -26,7 +26,7 @@ Meteor.publish('Stuff', function publish() {
 });
 
 /** This subscription publishes all documents regardless of user, but only if the logged in user is the Admin. */
-Meteor.publish('StuffAdmin', function publish() {
+Meteor.publish('DivesAdmin', function publish() {
   if (this.userId && Roles.userIsInRole(this.userId, 'admin')) {
     return Dives.find();
   }

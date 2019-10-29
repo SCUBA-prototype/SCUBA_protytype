@@ -974,5 +974,14 @@
         "40": [140]
       }
     }
+  ],
+  "defaultDives": [
+    {
+      "name": "diver",
+      "depth": 30,
+      "bottomTime": 60,
+      "surfaceIntervalTime": 60,
+      "startingPressureGroup": "A"
+  }
   ]
 }

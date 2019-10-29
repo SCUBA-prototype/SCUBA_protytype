@@ -11,7 +11,7 @@ const DiveSchema = new SimpleSchema({
   depth: {type: Number, defaultValue: 0},
   bottomTime: {type: Number, defaultValue: 0},
   surfaceIntervalTime: {type: Number, defaultValue: 0},
-  startingPressureGroup: {type: Number, defaultValue: 0},
+  startingPressureGroup: String,
 }, { tracker: Tracker });
 
 /** Attach this schema to the collection. */

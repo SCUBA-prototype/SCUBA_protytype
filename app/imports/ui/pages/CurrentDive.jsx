@@ -2,7 +2,6 @@ import React from 'react';
 import { Meteor } from 'meteor/meteor';
 import { Container, Header, Loader, Card } from 'semantic-ui-react';
 import { Dives } from '/imports/api/dive/dive';
-import { diveList } from '/imports/api/dive/diveList';
 import { withTracker } from 'meteor/react-meteor-data';
 import PropTypes from 'prop-types';
 
@@ -134,11 +133,10 @@ class CurrentDive extends React.Component() {
     }
 }
 
-this.diveList.insert(this.currentDive);
+this.dives.insert(this.currentDive);
 
 /** Require an array of Stuff documents in the props. */
 CurrentDive.propTypes = {
-    diveList: PropTypes.array.isRequired,
     dives: PropTypes.array.isRequired,
     ready: PropTypes.bool.isRequired,
 };
@@ -148,7 +146,6 @@ export default withTracker(() => {
     // Get access to Stuff documents.
     const subscription = Meteor.subscribe('Dive');
     return {
-        diveList: diveList.find({}, { sort: { createdAt: -1 }}).fetch(),
         dives: Dives.find({}, { sort: { createdAt: -1 }}).fetch(),
         ready: subscription.ready(),
     };
