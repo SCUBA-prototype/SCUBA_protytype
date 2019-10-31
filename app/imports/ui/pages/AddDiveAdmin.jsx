@@ -50,7 +50,7 @@ class AddDiveAdmin extends React.Component {
                             <NumField name='depth' decimal={false}/>
                             <NumField name='bottomTime' decimal={false}/>
                             <NumField name='surfaceIntervalTime' decimal={false}/>
-                            <TextField name='startingPressureGroup' inputProps={{maxLength:1}}/>
+                            <TextField name='startingPressureGroup'/>
                             <ErrorsField/>
                         </Segment>
                     </AutoForm>
