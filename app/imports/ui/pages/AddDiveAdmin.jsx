@@ -1,6 +1,6 @@
 import React from 'react';
 import { Dives, DiveSchema } from '/imports/api/dive/dive';
-import { Grid, Segment, Header } from 'semantic-ui-react';
+import { Grid, Segment, Header, Dropdown} from 'semantic-ui-react';
 import AutoForm from 'uniforms-semantic/AutoForm';
 import TextField from 'uniforms-semantic/TextField';
 import NumField from 'uniforms-semantic/NumField';
@@ -33,7 +33,6 @@ class AddDiveAdmin extends React.Component {
     /** On submit, insert the data. */
     submit(data) {
         const { name, depth, bottomTime, surfaceIntervalTime, startingPressureGroup } = data;
-        const owner = Meteor.user().username;
         Dives.insert({ name, depth, bottomTime, surfaceIntervalTime, startingPressureGroup }, this.insertCallback);
     }
 
@@ -42,18 +41,18 @@ class AddDiveAdmin extends React.Component {
         return (
             <Grid container centered>
                 <Grid.Column>
-                    <Header as="h2" textAlign="center">Add Dive</Header>
+                    <Header as="h2" textAlign="center">Plan Dive</Header>
                     <Header as="h3" textAlign="center">How do you plan on diving today? Let us help.</Header>
-                    <AutoForm ref={(ref) => { this.formRef = ref; }} schema={DiveSchema} onSubmit={this.submit}>
-                        <Segment>
-                            <TextField name='name'/>
-                            <NumField name='depth' decimal={false}/>
-                            <NumField name='bottomTime' decimal={false}/>
-                            <NumField name='surfaceIntervalTime' decimal={false}/>
-                            <TextField name='startingPressureGroup'/>
-                            <ErrorsField/>
-                        </Segment>
-                    </AutoForm>
+                    <Header as="h4" textAlign="left"> Depth </Header>
+                    <Dropdown text="Select Depth"></Dropdown>
+                    <Header as="h4" textAlign="left"> Total Bottom Time </Header>
+                    <Dropdown text="00 Mins"></Dropdown>
+                    <Header as="h4" textAlign="left"> Initial Pressure Group </Header>
+                    <Dropdown text="A"></Dropdown>
+                    <Header as="h4" textAlign="left"> Surface Interval </Header>
+                    <Dropdown text="0:00"></Dropdown>
+                    <Header as="h4" textAlign="left"> Pressure Group after Surface Interval</Header>
+                    <Dropdown text="A"></Dropdown>
                 </Grid.Column>
             </Grid>
         );

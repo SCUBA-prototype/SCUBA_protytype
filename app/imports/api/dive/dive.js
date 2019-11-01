@@ -7,13 +7,13 @@ const Dives = new Mongo.Collection('Dives');
 
 /** Create a schema to constrain the structure of documents associated with this collection. */
 const DiveSchema = new SimpleSchema({
-  name: String,
   createdAt: Date,
   totalBottomTime: String,
   depth: {type: Number, defaultValue: 0},
   bottomTime: {type: Number, defaultValue: 0},
   surfaceIntervalTime: {type: Number, defaultValue: 0},
   startingPressureGroup: {type: String, defaultValue:'A',},
+  pressureGroupAfterDive: {type: String, defaultValue:'A'},
   blackbox: true,
 }, { tracker: Tracker });
 
