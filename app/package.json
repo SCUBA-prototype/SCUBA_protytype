@@ -3,6 +3,7 @@
   "private": true,
   "dependencies": {
     "@babel/runtime": "^7.6.3",
+    "body-parser": "^1.19.0",
     "classnames": "^2.2.6",
     "core-js": "^2.6.4",
     "graphql": "^0.8.2",
@@ -19,10 +20,12 @@
     "semantic-ui-react": "^0.82.5",
     "simpl-schema": "^1.5.5",
     "simple-schema": "^1.1.0",
+    "underscore": "^1.9.1",
     "uniforms": "^1.31.0",
     "uniforms-semantic": "^1.31.0"
   },
   "devDependencies": {
+    "@types/underscore": "^1.9.3",
     "babel-eslint": "^8.2.6",
     "eslint": "^5.13.0",
     "eslint-config-airbnb": "^17.1.0",
