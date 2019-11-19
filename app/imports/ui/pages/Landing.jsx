@@ -31,7 +31,7 @@ class Landing extends React.Component {
                                     Plan and save your next diving trip for a memorable and safe experience!
                                     <p></p>
                                     <Card.Content extra textAlign='center'>
-                                        <Link to={'/add'}>
+                                        <Link  to={`/inputdive`} activeClassName="active">
                                             <Button color={'red'}> Plan Dive Now </Button>
                                         </Link>
                                     </Card.Content>
