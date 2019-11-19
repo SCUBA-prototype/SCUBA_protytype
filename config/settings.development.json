@@ -1,86 +1,11 @@
 {
-  "defaultAccounts": [
+  "defaultDives": [
     {
-      "email": "admin@foo.com",
-      "password": "changeme",
-      "role": "admin"
-    },
-    {
-      "email": "john@foo.com",
-      "password": "changeme"
-    }
-  ],
-  "defaultReviews": [
-    {
-      "restaurantName":"Kamitoku Ramen Truck",
-      "user": "john@foo.com",
-      "review": "It's alright as a food truck vendor. Whenever I pass by it, it smells oily. However, their beef bowls are prime and cheap!",
-      "rating": "3",
-      "createdAt": "Wed May 01 2019 20:14:56 GMT-1000 (Hawaii-Aleutian Standard Time)"
-    },
-    {
-      "restaurantName":"Sistah`s Food Truck",
-      "user": "john@foo.com",
-      "review": "This is definitely the best food truck on campus! If you try their food, I would definitely recommend the Chicken Katsu with its special sauce. <3",
-      "rating": "5",
-      "createdAt": "Wed May 01 2019 20:14:56 GMT-1000 (Hawaii-Aleutian Standard Time)"
-    },
-    {
-      "restaurantName":"Hot Tacos Truck",
-      "user": "john@foo.com",
-      "review": "For the given price, you get three tacos of your choosing. Personally, the tacos seem pretty small, but they can definitely fill you up! The only downside is that it is too far from my workplace. :(",
-      "rating": "4",
-      "createdAt": "Wed May 01 2019 20:14:56 GMT-1000 (Hawaii-Aleutian Standard Time)"
-    }
-  ],
-  "defaultData": [
-    {
-      "name": "Sistah`s Food Truck",
-      "address": "POST",
-      "image": "/images/sistahtruck.jpg",
-      "description": "Sistah's Food Truck is a highly-reviewed fast-food restaurant. The customers' favorite would definitely be their chicken katsu and unique special sauce. Whenever you pass by the truck, lines of people are waiting and menu items are sold out.",
-      "price": "12/01/97",
-      "hours":"Monday - Friday: 10:00am - 2:00 pm",
-      "menu": [
-        "Hot Coffee",
-        "Iced Coffee",
-        "Blended Coffee",
-        "Donuts",
-        "Breakfast",
-        "Lunch Sandwiches"
-      ]
-    },
-    {
-      "name": "Kamitoku Ramen Truck",
-      "address": "POST",
-      "image": "/images/kamitoku.jpg",
-      "description": "Kamitoku provides the cheap goods to your Japanese cuisine cravings, serving food items such as ramen and beef bowls.",
-      "price": "06/19/69",
-      "hours":"Monday - Friday: 10:00am - 2:00 pm",
-      "menu": [
-        "Hot Coffee",
-        "Iced Coffee",
-        "Blended Coffee",
-        "Donuts",
-        "Breakfast",
-        "Lunch Sandwiches"
-      ]
-    },
-    {
-      "name": "Hot Tacos Truck",
-      "address": "Deep Blue",
-      "image": "/images/hottacos.jpg",
-      "description": "The Hot Tacos Truck offers a wide variety of Mexican food ranging from burritos, tacos, quesadillas, with a wide variety of meat options to choose from such as steak, chicken, pork, and beef. They offer a la carte options or lunch plates that include beans and Spanish rice and other add on options like Chili Rellenos and Tamales.   ",
-      "price": "06/12/01",
-      "hours":"Monday - Friday: 10:00am - 2:00 pm",
-      "menu": [
-        "Hot Coffee",
-        "Iced Coffee",
-        "Blended Coffee",
-        "Donuts",
-        "Breakfast",
-        "Lunch Sandwiches"
-      ]
+      "name": "diver1",
+      "depth": 30,
+      "bottomTime": 60,
+      "surfaceIntervalTime": 60,
+      "startingPressureGroup": "A"
     }
   ],
   "defaultDataTableOne": [
