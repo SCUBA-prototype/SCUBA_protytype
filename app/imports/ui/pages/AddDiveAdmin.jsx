@@ -2,17 +2,7 @@ import React from "react";
 import { DataTableOne } from "/imports/api/data/dataTableOne";
 import { DataTableTwo } from "/imports/api/data/dataTableTwo";
 import { DataTableThree } from "/imports/api/data/dataTableThree";
-import {
-    Grid,
-    Header,
-    Container,
-    Form,
-    Loader,
-    Modal,
-    Button,
-    Icon,
-    Image
-} from "semantic-ui-react";
+import { Grid, Header, Container, Form, Loader, Modal, Button, Icon, Image } from "semantic-ui-react";
 import { Bert } from "meteor/themeteorchef:bert";
 import { Meteor } from "meteor/meteor";
 import { withTracker } from "meteor/react-meteor-data";
@@ -216,6 +206,7 @@ class AddDiveAdmin extends React.Component {
     }
 
     renderComponent() {
+        const divStyle = { paddingBottom: '50px', paddingTop: '50px' };
         Session.setDefault("depth", "");
         Session.setDefault("time", "");
         Session.setDefault("pressureGroup1", "");
@@ -232,8 +223,7 @@ class AddDiveAdmin extends React.Component {
                     </Header>
                     <h2 style={{ fontSize: 14 }}>Would you like to plan a dive?</h2>
                     <Container style={{ paddingLeft: 20 }}>
-                        <Form id="add-course">
-                            <Form.Group>
+                        <Form>
                                 <Form.Dropdown
                                     fluid
                                     search
@@ -247,6 +237,7 @@ class AddDiveAdmin extends React.Component {
                                     placeholder={"Select Depth (in feet)"}
                                     style={{ minWidth: 150 }}
                                 />
+                            <h2 style={{ fontSize: 14 }}>Planned Diving Time</h2>
                                 <Form.Dropdown
                                     fluid
                                     search
@@ -260,56 +251,46 @@ class AddDiveAdmin extends React.Component {
                                     placeholder={"Select Time"}
                                     style={{ minWidth: 150 }}
                                 />
+                                <h2 style={{ fontSize: 14 }}>Planned Surface Interval</h2>
                                 <Form.Dropdown
                                     fluid
                                     search
                                     selection
+                                    placeholder={"Select Planned Surface Interval"}
                                     options={this.state.dropdownThree}
                                     name={"plannedSI"}
                                     disabled={this.state.threeDisble}
                                     value={this.state.plannedSI}
                                     onChange={this.updateState}
                                     onClick={this.dropdownThree}
-                                    placeholder={"Select Planned Surface Interval"}
                                     style={{ minWidth: 150 }}
                                 />
-                                <Button
-                                    floated="right"
-                                    color="blue"
-                                    inverted
-                                    icon="plus"
-                                    disabled={this.state.submitDisable}
-                                    onClick={this.submitDive}
-                                />
-                                <Button
-                                    floated="right"
-                                    color="red"
-                                    inverted
-                                    icon="x"
-                                    onClick={this.clear}
-                                />
-                            </Form.Group>
                         </Form>
-                        <Modal open={this.state.modal} basic size="small">
-                            <Modal.Header>
-                                <Image size="medium" floated="left" src={"/images/diver.png"} />
-                                Dive Added
-                            </Modal.Header>
-                            <Modal.Content>
-                                <p>Depth: {Session.get("depth")}</p>
-                                <p>Time: {Session.get("time")}</p>
-                                <p>Surface Interval: {Session.get("plannedSI")}</p>
-                                <p>Residual Nitrogen Time: {Session.get("RNT")}</p>
-                                <p>Actual Bottom Time: {Session.get("actualBT")}</p>
-                                <p>Total Bottom Time: {Session.get("totalBT")}</p>
-                            </Modal.Content>
-                            <Modal.Actions>
-                                <Button onClick={this.closeModal}>
-                                    <Icon name="close" color="red" /> Close
-                                </Button>
-                            </Modal.Actions>
-                        </Modal>
+                        <Form>
+                            <Button
+                                floated="right"
+                                color="blue"
+                                inverted
+
+                                disabled={this.state.submitDisable}
+                                onClick={this.submitDive}
+                            > Submit </Button>
+                            <Button
+                                onClick={this.clear}
+                                floated="right"
+                                color="red"
+                                inverted > Reset
+                            </Button>
+                        </Form>
                     </Container>
+                    <Grid.Row style={divStyle}>
+                        <p>Depth: {Session.get("depth")}</p>
+                        <p>Time: {Session.get("time")}</p>
+                        <p>Surface Interval: {Session.get("plannedSI")}</p>
+                        <p>Residual Nitrogen Time: {Session.get("RNT")}</p>
+                        <p>Actual Bottom Time: {Session.get("actualBT")}</p>
+                        <p>Total Bottom Time: {Session.get("totalBT")}</p>
+                    </Grid.Row>
                 </Grid.Column>
             </Grid>
         );

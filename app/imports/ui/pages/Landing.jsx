@@ -39,24 +39,6 @@ class Landing extends React.Component {
                             </Card.Content>
                         </Card>
                     </Grid.Column>
-                    <Grid.Column textAlign={'center'}>
-                        <Card centered>
-                            <Card.Content>
-                                <Card.Header>Log Book</Card.Header>
-                                <Image size='medium'
-                                       src='images/logbook.jpg'/>
-                                <Card.Description>
-                                    View saved plan dives
-                                    <p></p>
-                                    <Card.Content extra textAlign='center'>
-                                        <Link to={'/list'}>
-                                            <Button color={'red'}> Log History</Button>
-                                        </Link>
-                                    </Card.Content>
-                                </Card.Description>
-                            </Card.Content>
-                        </Card>
-                    </Grid.Column>
                 </Grid>
             </div>
         );

@@ -21,9 +21,6 @@ class NavBar extends React.Component {
                 <Menu.Item as={NavLink} activeClassName="active" exact to="/add" key='add'>Dive Planner</Menu.Item>,
               ]
           ) : ''}
-          {this.props.currentUser ? (
-              <Menu.Item as={NavLink} activeClassName="active" exact to="/list" key='list'> Log Book </Menu.Item>
-          ) : ''}
           <Menu.Item position="right">
             {this.props.currentUser === '' ? (
                 <Dropdown text="Login" pointing="top right" icon={'user'}>
