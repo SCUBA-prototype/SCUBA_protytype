@@ -1,25 +1,25 @@
 import { Meteor } from "meteor/meteor";
 import { Roles } from "meteor/alanning:roles";
-import { DataTableOne } from "../../api/data/dataTableOne.js";
+import { PADITableOne } from "../../api/PADI/PADITableOne.js";
 
 /** Initialize the database with a default data document. */
-function addData(data) {
+function addPADI(data) {
   console.log("Adding data");
-  DataTableOne.insert(data);
+  PADITableOne.insert(data);
 }
 
 /** Initialize the collection if empty. */
-if (DataTableOne.find().count() === 0) {
-  if (Meteor.settings.defaultDataTableOne) {
+if (PADITableOne.find().count() === 0) {
+  if (Meteor.settings.defaultPADITableOne) {
     console.log("Creating default data table one.");
-    Meteor.settings.defaultDataTableOne.map(data => addData(data));
+    Meteor.settings.defaultPADITableOne.map(data => addPADI(data));
   }
 }
 
 /** This subscription publishes all documents regardless of user, but only if the logged in user is the Admin. */
-Meteor.publish("DataTableOne", function publish() {
+Meteor.publish("PADITableOne", function publish() {
   if (this.userId) {
-    return DataTableOne.find();
+    return PADITableOne.find();
   }
   return this.ready();
 });

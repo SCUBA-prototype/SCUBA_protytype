@@ -3,10 +3,10 @@ import SimpleSchema from "simpl-schema";
 import { Tracker } from "meteor/tracker";
 
 /** Create a Meteor collection. */
-const DataTableThree = new Mongo.Collection("DataTableThree");
+const PADITableTwo = new Mongo.Collection("PADITableTwo");
 
 /** Create a schema to constrain the structure of documents associated with this collection. */
-const DataTableThreeSchema = new SimpleSchema(
+const PADITableTwoSchema = new SimpleSchema(
   {
     A: { type: Object, blackbox: true },
     B: { type: Object, blackbox: true },
@@ -39,7 +39,7 @@ const DataTableThreeSchema = new SimpleSchema(
 );
 
 /** Attach this schema to the collection. */
-DataTableThree.attachSchema(DataTableThreeSchema);
+PADITableTwo.attachSchema(PADITableTwoSchema);
 
 /** Make the collection and schema available to other code. */
-export { DataTableThree, DataTableThreeSchema };
+export { PADITableTwo, PADITableTwoSchema };

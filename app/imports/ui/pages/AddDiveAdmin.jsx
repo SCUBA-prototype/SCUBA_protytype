@@ -1,7 +1,7 @@
 import React from "react";
-import { DataTableOne } from "/imports/api/data/dataTableOne";
-import { DataTableTwo } from "/imports/api/data/dataTableTwo";
-import { DataTableThree } from "/imports/api/data/dataTableThree";
+import { PADITableOne } from "/imports/api/PADI/PADITableOne";
+import { PADITableTwo } from "/imports/api/PADI/PADITableTwo";
+import { PADITableThree } from "/imports/api/PADI/PADITableThree";
 import { Grid, Header, Container, Form, Loader, Modal, Button, Icon, Image } from "semantic-ui-react";
 import { Bert } from "meteor/themeteorchef:bert";
 import { Meteor } from "meteor/meteor";
@@ -19,6 +19,7 @@ class AddDiveAdmin extends React.Component {
         this.state = {
             depth: "",
             time: "",
+            PGI:"",
             pressureGroup1: "",
             pressureGroup2: "",
             plannedSI: "",
@@ -28,9 +29,9 @@ class AddDiveAdmin extends React.Component {
             dropdownOne: [],
             dropdownTwo: [],
             dropdownThree: [],
-            submitDisable: true,
             residual: ""
         };
+
         this.insertCallback = this.insertCallback.bind(this);
         this.updateState = this.updateState.bind(this);
         this.renderComponent = this.renderComponent.bind(this);
@@ -62,12 +63,11 @@ class AddDiveAdmin extends React.Component {
         const plannedSI = Session.get("plannedSI");
         const pressureGroup2 = this.props.two[pressureGroup1][plannedSI];
         const arr = this.props.three[pressureGroup2][depth];
-        const residual = Session.get("residual")
         Session.set("pressureGroup2", pressureGroup2);
         if (arr.length === 2) {
             const RNT = arr[0];
             const actualBT = arr[1];
-            const totalBT = RNT + actualBT + residual;
+            const totalBT = RNT + actualBT;
             Session.set("RNT", RNT);
             Session.set("actualBT", actualBT);
             Session.set("totalBT", totalBT);
@@ -104,15 +104,11 @@ class AddDiveAdmin extends React.Component {
             totalBT: "",
             dropdownOne: [],
             dropdownTwo: [],
-            dropdownThree: [],
-            oneDisable: false,
-            twoDisable: true,
-            threeDisble: true,
-            submitDisable: true
+            dropdownThree: []
         });
     }
 
-    dropdownOne() {
+    dropdownOne() { //Pressure Group
         let i = -1;
         const dropdownOne = _.map(
             _.without(_.keys(this.props.one), "_id"),
@@ -130,10 +126,10 @@ class AddDiveAdmin extends React.Component {
         });
     }
 
-    dropdownTwo() {
+    dropdownTwo() { //
         let i = -1;
         const dropdownTwo = _.map(
-            _.keys(this.props.one[this.state.depth]),
+            _.without(_.keys(this.props.one[this.state.depth]), "_id"),
             function(val) {
                 i++;
                 return {
@@ -155,7 +151,7 @@ class AddDiveAdmin extends React.Component {
         Session.set("pressureGroup1", pressureGroup1);
         let i = -1;
         const dropdownThree = _.map(
-            _.keys(this.props.two[pressureGroup1]),
+            _.keys(this.props.one[pressureGroup1]),
             function(val) {
                 i++;
                 return {
@@ -166,8 +162,7 @@ class AddDiveAdmin extends React.Component {
             }
         );
         this.setState({
-            dropdownThree: dropdownThree,
-            threeDisble: false
+            dropdownThree: dropdownThree
         });
     }
 
@@ -180,15 +175,13 @@ class AddDiveAdmin extends React.Component {
         Session.setDefault("plannedSI", "");
         Session.setDefault("RNT", "");
         Session.setDefault("actualBT", "");
-        Session.setDefault("totalBT", "");
-        Session.setDefault("residual", "");
         return (
             <Grid container centered>
                 <Grid.Column>
                     <Header as="h2" textAlign="center">
                         Add Dive
                     </Header>
-                    <h2 style={{ fontSize: 14 }}>Would you like to plan a dive?</h2>
+                    <h2 style={{ fontSize: 14 }}>Initial Pressure Group</h2>
                     <Container style={{ paddingLeft: 20 }}>
                         <Form>
                                 <Form.Dropdown
@@ -197,25 +190,23 @@ class AddDiveAdmin extends React.Component {
                                     selection
                                     options={this.state.dropdownOne}
                                     name={"depth"}
-                                    disabled={this.state.oneDisable}
-                                    value={this.state.depth}
+                                    value={this.state.PGI}
                                     onChange={this.updateState}
                                     onClick={this.dropdownOne}
                                     placeholder={"Select Depth (in feet)"}
                                     style={{ minWidth: 150 }}
                                 />
-                            <h2 style={{ fontSize: 14 }}>Planned Diving Time</h2>
+                            <h2 style={{ fontSize: 14 }}>Planned Depth</h2>
                                 <Form.Dropdown
                                     fluid
                                     search
                                     selection
                                     options={this.state.dropdownTwo}
                                     name={"time"}
-                                    disabled={this.state.twoDisable}
-                                    value={this.state.time}
+                                    value={this.state.depth}
                                     onChange={this.updateState}
                                     onClick={this.dropdownTwo}
-                                    placeholder={"Select Time"}
+                                    placeholder={"Select Depth"}
                                     style={{ minWidth: 150 }}
                                 />
                                 <h2 style={{ fontSize: 14 }}>Planned Surface Interval</h2>
@@ -223,26 +214,16 @@ class AddDiveAdmin extends React.Component {
                                     fluid
                                     search
                                     selection
-                                    placeholder={"Select Planned Surface Interval"}
+                                    placeholder={"Select Time"}
                                     options={this.state.dropdownThree}
-                                    name={"plannedSI"}
-                                    disabled={this.state.threeDisble}
-                                    value={this.state.plannedSI}
+                                    name={"Diving Time"}
+                                    value={this.state.time}
                                     onChange={this.updateState}
                                     onClick={this.dropdownThree}
                                     style={{ minWidth: 150 }}
                                 />
-                                <h2 style={{ fontSize: 14 }}>Residual Nitrogen (If Applicable)</h2>
-                                <Form.Input
-                                    fluid
-                                    placeholder={"Residual Nitrogen"}
-                                    name={"residual"}
-                                    type="text"
-                                    value={this.state.residual}
-                                    onChange={this.updateState}
-                                />
                         </Form>
-                        <Form>
+                        <Form style={divStyle}>
                             <Button
                                 floated="right"
                                 color="blue"
@@ -260,7 +241,7 @@ class AddDiveAdmin extends React.Component {
                     <Grid.Row style={divStyle}>
                         <p>Depth: {Session.get("depth")}</p>
                         <p>Time: {Session.get("time")}</p>
-                        <p>Residual: {Session.get("residual")}</p>
+                        <p>Pressure Group: {Session.get("pressureGroup")}</p>
                         <p>Surface Interval: {Session.get("plannedSI")}</p>
                         <p>Residual Nitrogen Time: {Session.get("RNT")}</p>
                         <p>Actual Bottom Time: {Session.get("actualBT")}</p>
@@ -289,9 +270,9 @@ AddDiveAdmin.propTypes = {
 };
 
 export default withTracker(() => {
-    const subscription = Meteor.subscribe("DataTableOne");
-    const subscription2 = Meteor.subscribe("DataTableTwo");
-    const subscription3 = Meteor.subscribe("DataTableThree");
+    const subscription = Meteor.subscribe("PADITableOne");
+    const subscription2 = Meteor.subscribe("PADITableTwo");
+    const subscription3 = Meteor.subscribe("PADITableThree");
 
     let tableOne = {};
     let tableTwo = {};
@@ -301,16 +282,16 @@ export default withTracker(() => {
         subscription2.ready() &&
         subscription3.ready()
     ) {
-        tableOne = DataTableOne.find({}).fetch();
-        tableTwo = DataTableTwo.find({}).fetch();
-        tableThree = DataTableThree.find({}).fetch();
+        tableOne = PADITableOne.find({}).fetch();
+        tableTwo = PADITableTwo.find({}).fetch();
+        tableThree = PADITableThree.find({}).fetch();
     }
 
     return {
         // Returns the entire array, [0] since we want the object
-        one: tableOne[0],
+        three: tableOne[0],
         two: tableTwo[0],
-        three: tableThree[0],
+        one: tableThree[0],
         ready:
             subscription.ready() && subscription2.ready() && subscription3.ready()
     };
