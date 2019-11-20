@@ -1,6 +1,6 @@
 import { Meteor } from "meteor/meteor";
 import { Roles } from "meteor/alanning:roles";
-import { PADITableTwo } from "../../api/PADI/PADI_PGI";
+import { PADI_PGI } from "../../api/PADI/PADI_PGI.js";
 
 /** Initialize the database with a default data document. */
 function addData(data) {
@@ -11,7 +11,7 @@ function addData(data) {
 /** Initialize the collection if empty. */
 if (PADI_PGI.find().count() === 0) {
   if (Meteor.settings.defaultPADI_PGI) {
-    console.log("Creating default data table two.");
+    console.log("Creating default data table PGI.");
     Meteor.settings.defaultPADI_PGI.map(data => addData(data));
   }
 }

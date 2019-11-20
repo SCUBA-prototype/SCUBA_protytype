@@ -8,6 +8,7 @@ import { Meteor } from "meteor/meteor";
 import { withTracker } from "meteor/react-meteor-data";
 import PropTypes from "prop-types";
 import { Session } from "meteor/session";
+import { PADI_PGI } from "/imports/api/PADI/PADI_PGI";
 
 const _ = require("underscore");
 
@@ -151,7 +152,8 @@ class AddDiveAdmin extends React.Component {
         Session.set("pressureGroup1", pressureGroup1);
         let i = -1;
         const dropdownThree = _.map(
-            _.keys(this.props.one[pressureGroup1]),
+            // _.keys(this.props.one[pressureGroup1]),
+            _.without(_.keys(this.props.one), "_id"),
             function(val) {
                 i++;
                 return {
@@ -263,9 +265,10 @@ class AddDiveAdmin extends React.Component {
 }
 
 AddDiveAdmin.propTypes = {
-    one: PropTypes.object.isRequired,
-    two: PropTypes.object.isRequired,
-    three: PropTypes.object.isRequired,
+    one: PropTypes.object,
+    two: PropTypes.object,
+    three: PropTypes.object,
+    PGI: PropTypes.object,
     ready: PropTypes.bool.isRequired
 };
 
@@ -273,18 +276,22 @@ export default withTracker(() => {
     const subscription = Meteor.subscribe("PADITableOne");
     const subscription2 = Meteor.subscribe("PADITableTwo");
     const subscription3 = Meteor.subscribe("PADITableThree");
+    const subscription4 = Meteor.subscribe("PADI_PGI");
 
     let tableOne = {};
     let tableTwo = {};
     let tableThree = {};
+    let tablePGI = {};
     if (
-        subscription.ready() &&
-        subscription2.ready() &&
-        subscription3.ready()
+        subscription.ready()    &&
+        subscription2.ready()   &&
+        subscription3.ready()   &&
+        subscription4.ready()
     ) {
-        tableOne = PADITableOne.find({}).fetch();
-        tableTwo = PADITableTwo.find({}).fetch();
-        tableThree = PADITableThree.find({}).fetch();
+        tableOne    = PADITableOne.find({}).fetch();
+        tableTwo    = PADITableTwo.find({}).fetch();
+        tableThree  = PADITableThree.find({}).fetch();
+        tablePGI    = PADI_PGI.find({}).fetch();
     }
 
     return {
@@ -292,7 +299,8 @@ export default withTracker(() => {
         three: tableOne[0],
         two: tableTwo[0],
         one: tableThree[0],
+        PGI: tablePGI[0],
         ready:
-            subscription.ready() && subscription2.ready() && subscription3.ready()
+            subscription.ready() && subscription2.ready() && subscription3.ready() && subscription4.ready(),
     };
 })(AddDiveAdmin);

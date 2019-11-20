@@ -3,7 +3,7 @@ import { Roles } from "meteor/alanning:roles";
 import { PADITableOne } from "../../api/PADI/PADITableOne.js";
 
 /** Initialize the database with a default data document. */
-function addPADI(data) {
+function addData(data) {
   console.log("Adding data");
   PADITableOne.insert(data);
 }
@@ -12,7 +12,7 @@ function addPADI(data) {
 if (PADITableOne.find().count() === 0) {
   if (Meteor.settings.defaultPADITableOne) {
     console.log("Creating default data table one.");
-    Meteor.settings.defaultPADITableOne.map(data => addPADI(data));
+    Meteor.settings.defaultPADITableOne.map(data => addData(data));
   }
 }
 
