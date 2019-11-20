@@ -7,8 +7,8 @@ import { withRouter } from 'react-router-dom';
 import { Bert } from 'meteor/themeteorchef:bert';
 import { withTracker } from 'meteor/react-meteor-data';
 import { Meteor } from "meteor/meteor";
+import * as PADI from "/imports/functions.js";
 
-/** Renders a table containing all of the Food documents. Use <StuffItem> to render each row. */
 class Dive extends React.Component {
 
   constructor(props) {
