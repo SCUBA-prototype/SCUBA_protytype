@@ -10,7 +10,7 @@ import Signup from '../pages/Signup';
 import Signout from '../pages/Signout';
 import Landing from '../pages/Landing';
 import NotFound from "../pages/NotFound";
-import ListDivesAdmin from "../pages/ListDivesAdmin";
+
 import AddDiveAdmin from "../pages/AddDiveAdmin";
 /** Top-level layout component for this application. Called in imports/startup/client/Startup.jsx. */
 class App extends React.Component {
@@ -23,7 +23,6 @@ class App extends React.Component {
                 <Route exact path="/" component={Landing}/>
                 <Route path="/signin" component={Signin}/>
                 <Route path="/signup" component={Signup}/>
-                <ProtectedRoute path="/list" component={ListDivesAdmin}/>
                 <ProtectedRoute path="/add" component={AddDiveAdmin}/>
                 {/*<ProtectedRoute path="/edit/:_id" component={EditDiveAdmin}/>*/}
                 <ProtectedRoute path="/signout" component={Signout}/>
