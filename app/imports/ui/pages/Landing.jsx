@@ -14,9 +14,9 @@ class Landing extends React.Component {
                         <Grid.Row className="title-main">
                             <p className="main-text">
                                 SCUBA
-                                <p className="side-text">
-                                    prototype
-                                </p>
+                            </p>
+                            <p className="side-text">
+                                prototype
                             </p>
                         </Grid.Row>
                     </Grid.Column>
@@ -31,26 +31,8 @@ class Landing extends React.Component {
                                     Plan and save your next diving trip for a memorable and safe experience!
                                     <p></p>
                                     <Card.Content extra textAlign='center'>
-                                        <Link  to={`/inputdive`} activeClassName="active">
+                                        <Link to={'/inputdive'}>
                                             <Button color={'red'}> Plan Dive Now </Button>
-                                        </Link>
-                                    </Card.Content>
-                                </Card.Description>
-                            </Card.Content>
-                        </Card>
-                    </Grid.Column>
-                    <Grid.Column textAlign={'center'}>
-                        <Card centered>
-                            <Card.Content>
-                                <Card.Header>Log Book</Card.Header>
-                                <Image size='medium'
-                                       src='images/logbook.jpg'/>
-                                <Card.Description>
-                                    View saved plan dives
-                                    <p></p>
-                                    <Card.Content extra textAlign='center'>
-                                        <Link to={'/list'}>
-                                            <Button color={'red'}> Log History</Button>
                                         </Link>
                                     </Card.Content>
                                 </Card.Description>
