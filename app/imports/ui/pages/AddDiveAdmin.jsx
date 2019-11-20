@@ -20,7 +20,8 @@ class AddDiveAdmin extends React.Component {
         this.state = {
             depth: "",
             time: "",
-            PGI:"",
+            PGI: "",
+            SI: "",
             pressureGroup1: "",
             pressureGroup2: "",
             plannedSI: "",
@@ -40,6 +41,7 @@ class AddDiveAdmin extends React.Component {
         this.dropdownOne = this.dropdownOne.bind(this);
         this.dropdownTwo = this.dropdownTwo.bind(this);
         this.dropdownThree = this.dropdownThree.bind(this);
+        this.dropdownFour = this.dropdownFour.bind(this);
         this.clear = this.clear.bind(this);
     }
 
@@ -146,14 +148,10 @@ class AddDiveAdmin extends React.Component {
     }
 
     dropdownThree() {
-        const depth = Session.get("depth");
-        const time = Session.get("time");
-        const pressureGroup1 = this.props.one[depth][time];
-        Session.set("pressureGroup1", pressureGroup1);
         let i = -1;
         const dropdownThree = _.map(
             // _.keys(this.props.one[pressureGroup1]),
-            _.without(_.keys(this.props.one), "_id"),
+            _.without(_.keys(this.props.PGI), "_id"),
             function(val) {
                 i++;
                 return {
@@ -165,6 +163,23 @@ class AddDiveAdmin extends React.Component {
         );
         this.setState({
             dropdownThree: dropdownThree
+        });
+    }
+    dropdownFour() {
+        let i = -1;
+        const dropdownFour= _.map(
+            _.without(_.keys(this.props.PGI[this.state.SI]), "_id"),
+            function(val) {
+                i++;
+                return {
+                    key: i,
+                    text: val,
+                    value: val
+                };
+            }
+        );
+        this.setState({
+            dropdownFour: dropdownFour
         });
     }
 
@@ -224,6 +239,19 @@ class AddDiveAdmin extends React.Component {
                                     onClick={this.dropdownThree}
                                     style={{ minWidth: 150 }}
                                 />
+                                <h2 style={{ fontSize: 14 }}>Residual Nitrogen</h2>
+                                <Form.Dropdown
+                                fluid
+                                search
+                                selection
+                                placeholder={"SI"}
+                                options={this.state.dropdownFour}
+                                name={"Surface Interval"}
+                                value={this.state.SI}
+                                onChange={this.updateState}
+                                onClick={this.dropdownFour}
+                                style={{ minWidth: 150 }}
+                                 />
                         </Form>
                         <Form style={divStyle}>
                             <Button
@@ -241,8 +269,8 @@ class AddDiveAdmin extends React.Component {
                         </Form>
                     </Container>
                     <Grid.Row style={divStyle}>
-                        <p>Depth: {Session.get("depth")}</p>
-                        <p>Time: {Session.get("time")}</p>
+                        <p>Initial Group: {Session.get("depth")}</p>
+                        <p>Depth: {Session.get("time")}</p>
                         <p>Pressure Group: {Session.get("pressureGroup")}</p>
                         <p>Surface Interval: {Session.get("plannedSI")}</p>
                         <p>Residual Nitrogen Time: {Session.get("RNT")}</p>
