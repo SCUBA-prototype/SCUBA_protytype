@@ -26,9 +26,18 @@ Meteor.publish('Dives', function publish() {
   return this.ready();
 });
 
-Meteor.publish('DivesByName', function publish(name) {
-  return Dives.find({depth: {
-      $lt: 150
-    }, name});
+Meteor.publish('Dive', function publish() {
+  if (this.userId) {
+    const username = Meteor.users.findOne(this.userId).username;
+    return Dives.find({ owner: username });
+  }
+  return this.ready();
+});
+
+/** This subscription publishes all documents regardless of user, but only if the logged in user is the Admin. */
+Meteor.publish('DiveAdmin', function publish() {
+  if (this.userId && Roles.userIsInRole(this.userId, 'admin')) {
+    return Dives.find();
+  }
   return this.ready();
 });
