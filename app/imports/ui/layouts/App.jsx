@@ -13,7 +13,7 @@ import Signin from "../pages/Signin";
 import Signout from "../pages/Signout";
 import Signup from "../pages/Signup";
 import Dive from "../components/Dive";
-/** Top-level layout component for this application. Called in imports/startup/client/startup.jsx. */
+/** Top-level layout component for this application. Called in imports/startup/client/Startup.jsx. */
 
 import AddDiveAdmin from "../pages/AddDiveAdmin";
 /** Top-level layout component for this application. Called in imports/startup/client/Startup.jsx. */
