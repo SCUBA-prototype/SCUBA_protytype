@@ -69,3 +69,6 @@ div.column.result-dive-card {
 div.ui.initial-dive-card {
   padding-right: 20px;
 }
+div.ui.card-group {
+  padding-left: 40px;
+}

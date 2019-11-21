@@ -17,6 +17,7 @@ class AddDiveAdmin extends React.Component {
   /** Bind 'this' so that a ref to the Form can be saved in formRef and communicated between render() and submit(). */
   constructor(props) {
     super(props);
+    let items = [ this.Card ]
     this.state = {
       pgi: "",
       ipgi: "",
@@ -187,7 +188,7 @@ class AddDiveAdmin extends React.Component {
     Session.setDefault("actualBT", "");
     Session.setDefault("totalBT", "");
     return (
-        <Card.Group>
+        <Card.Group className="card-group" >
         <Card className="initial-dive-card">
           <Header style={{ padding: 10 }} as="h2" textAlign="center">
             React Recreational Dive Table
@@ -195,9 +196,9 @@ class AddDiveAdmin extends React.Component {
           <Card.Meta>
             <span className='date'>Enter parameters for your initial dive</span>
           </Card.Meta>
-          <h2 className="starting-pressure-group">Starting Pressure Group</h2>
-          <Container style={{ paddingLeft: 20 }}>
+          <Container style={{ padding: 20 }}>
             <Form>
+              <h2 style={{ fontSize: 14 }}>Starting Pressure Group</h2>
               <Form.Dropdown
                   fluid
                   search
@@ -236,21 +237,25 @@ class AddDiveAdmin extends React.Component {
             </Form>
             <Form style={divStyle}>
               <Button
-                  floated="right"
+                  floated="center"
                   color="blue"
                   inverted
                   onClick={this.submitDive}
               > Submit </Button>
               <Button
                   onClick={this.clear}
-                  floated="right"
+                  floated="center"
                   color="red"
                   inverted> Reset
               </Button>
             </Form>
           </Container>
         </Card>
-          <Card>
+          <Card style={{ padding: 20 }}>
+            <Header as="h2" textAlign="center" style={{ paddingBottom: 25 }}>Your Initial Dive</Header>
+            <Card.Meta>
+              <span>The results of your dive based on your input parameters.</span>
+            </Card.Meta>
             <h4> Starting Pressure Group: {Session.get("pgi")} </h4>
             <h4>Depth: {Session.get("depth")}</h4>
             <h4>Residual Nitrogen Time: {Session.get("pressureGroup1")}</h4>
@@ -259,8 +264,12 @@ class AddDiveAdmin extends React.Component {
             <h4>Final Pressure Group: {Session.get("pressureGroup2")}</h4>
           </Card>
           <Card>
-                <Container style={{ paddingLeft: 20 }}>
-                  <Form>
+                <Container style={{ padding: 20 }}>
+                  <Header as="h2" textAlign="center" style={{ paddingBottom: 25 }}>Add Another Dive</Header>
+                  <Card.Meta>
+                    <span style={{ paddingBottom: 25 }}>Use this feature for adding multiple dives to the same day.</span>
+                  </Card.Meta>
+                  <Form style={{ marginTop: 25 }}>
                     <Form.Dropdown
                         fluid
                         search
@@ -289,21 +298,25 @@ class AddDiveAdmin extends React.Component {
                   </Form>
                   <Form style={divStyle}>
                     <Button
-                        floated="right"
+                        floated="center"
                         color="blue"
                         inverted
                         onClick={this.submitSI}
                     > Submit </Button>
                     <Button
                         onClick={this.clear}
-                        floated="right"
+                        floated="center"
                         color="red"
                         inverted> Reset
                     </Button>
                   </Form>
                 </Container>
           </Card>
-          <Card>
+          <Card style={{ padding: 20 }}>
+            <Header as="h2" textAlign="center" style={{ paddingBottom: 25 }}>Your Next Dive</Header>
+            <Card.Meta>
+              <span>The results of your next dive based on your next dives input parameters.</span>
+            </Card.Meta>
                 <h4>Starting Pressure Group: {Session.get("ipgi")} </h4>
                 <h4>Surface Interval: {Session.get("plannedSI")}</h4>
                 <h4>Final Pressure Group: {Session.get("fpressure")}</h4>
