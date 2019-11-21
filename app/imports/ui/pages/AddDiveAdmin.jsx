@@ -19,6 +19,7 @@ class AddDiveAdmin extends React.Component {
         super(props);
         this.state = {
             pgi: "",
+            ipgi: "",
             time: "",
             plannedSI: "",
             pressureGroup1: "",
@@ -37,10 +38,11 @@ class AddDiveAdmin extends React.Component {
         this.updateState = this.updateState.bind(this);
         this.renderComponent = this.renderComponent.bind(this);
         this.submitDive = this.submitDive.bind(this);
+        this.submitSI = this.submitSI.bind(this);
         this.dropdownOne = this.dropdownOne.bind(this);
         this.dropdownTwo = this.dropdownTwo.bind(this);
-        // this.dropdownThree = this.dropdownThree.bind(this);
-        // this.dropdownFour = this.dropdownFour.bind(this);
+        this.dropdownThree = this.dropdownThree.bind(this);
+        this.dropdownFour = this.dropdownFour.bind(this);
         this.clear = this.clear.bind(this);
     }
 
@@ -71,10 +73,18 @@ class AddDiveAdmin extends React.Component {
         Session.set("pressureGroup2", pressureGroup2);
         this.clear();
     }
+    submitSI() {
+        const plannedSI = Session.get("plannedSI");
+        const ipgi = Session.get("ipgi");
+        const fpressure = this.props.two[ipgi][plannedSI];
+        Session.set("fpressure",fpressure);
+        this.clear();
+    }
 
     clear() {
         this.setState({
             pgi: "",
+            ipgi: "",
             time: "",
             plannedSI: "",
             pressureGroup1: "",
@@ -90,10 +100,9 @@ class AddDiveAdmin extends React.Component {
         });
     }
 
-    submitSI() {
 
-    }
 
+// ---------------------------------- Total Bottom Time ----------------------------------------
     dropdownOne() {
         let i = -1;
         const dropdownOne = _.map(
@@ -130,9 +139,47 @@ class AddDiveAdmin extends React.Component {
         });
     }
 
+// ---------------------------------- Surface Interval ----------------------------------------
+    dropdownThree() {
+        let i = -1;
+        const dropdownThree = _.map(
+            _.without(_.keys(this.props.two), "_id"),
+            function(val) {
+                i++;
+                return {
+                    key: i,
+                    text: val,
+                    value: val
+                };
+            }
+        );
+        this.setState({
+            dropdownThree: dropdownThree
+        });
+    }
+
+    dropdownFour() {
+        let i = -1;
+        const dropdownFour = _.map(
+            _.keys(this.props.two[this.state.ipgi]),
+            function(val) {
+                i++;
+                return {
+                    key: i,
+                    text: val,
+                    value: val
+                };
+            }
+        );
+        this.setState({
+            dropdownFour: dropdownFour
+        });
+    }
+
     renderComponent() {
         const divStyle = { paddingBottom: '50px', paddingTop: '50px' };
         Session.setDefault("pgi", "");
+        Session.setDefault("ipgi", "");
         Session.setDefault("depth", "");
         Session.setDefault("pressureGroup1", "");
         Session.setDefault("pressureGroup2", "");
@@ -146,6 +193,7 @@ class AddDiveAdmin extends React.Component {
                     <Header as="h2" textAlign="center">
                         Add Dive
                     </Header>
+                    // ---------------------------------- Total Bottom Time ----------------------------------------
                     <h2 style={{ fontSize: 14 }}>Starting Pressure Group</h2>
                     <Container style={{ paddingLeft: 20 }}>
                         <Form>
@@ -201,15 +249,65 @@ class AddDiveAdmin extends React.Component {
                         </Form>
                     </Container>
                     <Grid.Row style={divStyle}>
-                        <p>Starting Pressure Group: {Session.get("pgi")}</p>
-                        <p>Depth: {Session.get("depth")}</p>
-                        <p>Residual Nitrogen Time: {Session.get("pressureGroup1")}</p>
-                        <p>Actual Bottom Time: {Session.get("actualBT")}</p>
-                        <p>Total Bottom Time: {Session.get("totalBT")}</p>
-                        <p>Final Pressure Group: {Session.get("pressureGroup2")}</p>
+                        <h4> Starting Pressure Group: {Session.get("pgi")} </h4>
+                        <h4>Depth: {Session.get("depth")}</h4>
+                        <h4>Residual Nitrogen Time: {Session.get("pressureGroup1")}</h4>
+                        <h4>Actual Bottom Time: {Session.get("actualBT")}</h4>
+                        <h4>Total Bottom Time: {Session.get("totalBT")}</h4>
+                        <h4>Final Pressure Group: {Session.get("pressureGroup2")}</h4>
+                    </Grid.Row>
+                    <Container style={{ paddingLeft: 20 }}>
+                        <Form>
+                            <Form.Dropdown
+                                fluid
+                                search
+                                selection
+                                options={this.state.dropdownThree}
+                                name={"ipgi"}
+                                value={this.state.ipgi}
+                                onChange={this.updateState}
+                                onClick={this.dropdownThree}
+                                placeholder={"Select pgi "}
+                                style={{ minWidth: 150 }}
+                            />
+                            <h2 style={{ fontSize: 14 }}>Planned Diving depth</h2>
+                            <Form.Dropdown
+                                fluid
+                                search
+                                selection
+                                options={this.state.dropdownFour}
+                                name={"plannedSI"}
+                                value={this.state.plannedSI}
+                                onChange={this.updateState}
+                                onClick={this.dropdownFour}
+                                placeholder={"Select depth"}
+                                style={{ minWidth: 150 }}
+                            />
+                        </Form>
+                        <Form style={divStyle} >
+                            <Button
+                                floated="right"
+                                color="blue"
+                                inverted
+                                onClick={this.submitSI}
+                            > Submit </Button>
+                            <Button
+                                onClick={this.clear}
+                                floated="right"
+                                color="red"
+                                inverted > Reset
+                            </Button>
+                        </Form>
+                    </Container>
+                    <Grid.Row style={divStyle}>
+                        <h4>Starting Pressure Group: {Session.get("ipgi")} </h4>
+                        <h4>Surface Interval: {Session.get("plannedSI")}</h4>
+                        <h4>Final Pressure Group: {Session.get("fpressure")}</h4>
                     </Grid.Row>
                 </Grid.Column>
             </Grid>
+
+
         );
     }
 
