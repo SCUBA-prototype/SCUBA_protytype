@@ -193,7 +193,6 @@ class AddDiveAdmin extends React.Component {
                     <Header as="h2" textAlign="center">
                         Add Dive
                     </Header>
-                    // ---------------------------------- Total Bottom Time ----------------------------------------
                     <h2 style={{ fontSize: 14 }}>Starting Pressure Group</h2>
                     <Container style={{ paddingLeft: 20 }}>
                         <Form>
