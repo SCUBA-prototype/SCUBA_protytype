@@ -26,10 +26,6 @@ Meteor.publish('Dives', function publish() {
   return this.ready();
 });
 
-Meteor.publish('DivesByName', function publish(name) {
-  return Dives.find({depth: {
-      $lt: 150
-    }, name});
 Meteor.publish('Dive', function publish() {
   if (this.userId) {
     const username = Meteor.users.findOne(this.userId).username;
