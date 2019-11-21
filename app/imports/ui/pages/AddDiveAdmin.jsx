@@ -31,6 +31,7 @@ class AddDiveAdmin extends React.Component {
             dropdownTwo: [],
             dropdownThree: [],
             dropdownFour: [],
+            dropdownFive: [],
             submitDisable: true,
 
         };
@@ -43,6 +44,7 @@ class AddDiveAdmin extends React.Component {
         this.dropdownTwo = this.dropdownTwo.bind(this);
         this.dropdownThree = this.dropdownThree.bind(this);
         this.dropdownFour = this.dropdownFour.bind(this);
+        this.dropdownFive = this.dropdownFive.bind(this);
         this.clear = this.clear.bind(this);
     }
 
@@ -96,6 +98,7 @@ class AddDiveAdmin extends React.Component {
             dropdownTwo: [],
             dropdownThree: [],
             dropdownFour: [],
+            dropdownFive: [],
             submitDisable: true
         });
     }
@@ -138,6 +141,24 @@ class AddDiveAdmin extends React.Component {
             dropdownTwo: dropdownTwo
         });
     }
+    dropdownFive() {
+        let i = -1;
+        const dropdownFive= _.map(
+            _.keys(this.props.one[this.state.depth]),
+            function(val) {
+                i++;
+                return {
+                    key: i,
+                    text: val,
+                    value: val
+                };
+            }
+        );
+        this.setState({
+            dropdownFive: dropdownFive
+        });
+    }
+
 
 // ---------------------------------- Surface Interval ----------------------------------------
     dropdownThree() {
@@ -177,7 +198,7 @@ class AddDiveAdmin extends React.Component {
     }
 
     renderComponent() {
-        const divStyle = { paddingBottom: '50px', paddingTop: '50px' };
+        const divStyle = { paddingBottom: '25px', paddingTop: '25px' };
         Session.setDefault("pgi", "");
         Session.setDefault("ipgi", "");
         Session.setDefault("depth", "");
@@ -193,9 +214,10 @@ class AddDiveAdmin extends React.Component {
                     <Header as="h2" textAlign="center">
                         Add Dive
                     </Header>
-                    <h2 style={{ fontSize: 14 }}>Starting Pressure Group</h2>
+                    <h2 style={{ fontSize: 14 }}> Calculate Total Bottom Time</h2>
                     <Container style={{ paddingLeft: 20 }}>
                         <Form>
+                            <h2 style={{ fontSize: 14 }}>Starting Pressure Group</h2>
                             <Form.Dropdown
                                 fluid
                                 search
@@ -222,13 +244,15 @@ class AddDiveAdmin extends React.Component {
                                 style={{ minWidth: 150 }}
                             />
                             <h2 style={{ fontSize: 14 }}>Planned Diving Time</h2>
-                            <Form.Input
-                                type="number"
-                                placeholder={"Select Planned Surface Interval"}
+                            <Form.Dropdown
+                                fluid
+                                search
+                                selection
+                                options={this.state.dropdownFive}
                                 name={"actualBT"}
                                 value={this.state.actualBT}
                                 onChange={this.updateState}
-                                onClick={this.dropdownThree}
+                                onClick={this.dropdownFive}
                                 style={{ minWidth: 150 }}
                             />
                         </Form>
@@ -247,16 +271,25 @@ class AddDiveAdmin extends React.Component {
                             </Button>
                         </Form>
                     </Container>
-                    <Grid.Row style={divStyle}>
+                    <Grid container stackable centered columns={3} style={divStyle}>
+                        <Grid.Column>
                         <h4> Starting Pressure Group: {Session.get("pgi")} </h4>
                         <h4>Depth: {Session.get("depth")}</h4>
+                        </Grid.Column>
+                        <Grid.Column>
                         <h4>Residual Nitrogen Time: {Session.get("pressureGroup1")}</h4>
                         <h4>Actual Bottom Time: {Session.get("actualBT")}</h4>
+                        </Grid.Column>
+                        <Grid.Column>
                         <h4>Total Bottom Time: {Session.get("totalBT")}</h4>
                         <h4>Final Pressure Group: {Session.get("pressureGroup2")}</h4>
-                    </Grid.Row>
+                        </Grid.Column>
+                        <p> If Final Pressure Group is Blank, you have exceed maximum the Total Bottom Time of the Depth</p>
+                    </Grid>
+                    <h2 style={{ fontSize: 14 }}>Surface Interval Group</h2>
                     <Container style={{ paddingLeft: 20 }}>
                         <Form>
+                            <h2 style={{ fontSize: 14 }}>Initial Diving Group</h2>
                             <Form.Dropdown
                                 fluid
                                 search
@@ -269,7 +302,7 @@ class AddDiveAdmin extends React.Component {
                                 placeholder={"Select pgi "}
                                 style={{ minWidth: 150 }}
                             />
-                            <h2 style={{ fontSize: 14 }}>Planned Diving depth</h2>
+                            <h2 style={{ fontSize: 14 }}>Planned Surface Interval</h2>
                             <Form.Dropdown
                                 fluid
                                 search
@@ -298,11 +331,17 @@ class AddDiveAdmin extends React.Component {
                             </Button>
                         </Form>
                     </Container>
-                    <Grid.Row style={divStyle}>
+                    <Grid container stackable centered columns={3} style={divStyle}>
+                        <Grid.Column>
                         <h4>Starting Pressure Group: {Session.get("ipgi")} </h4>
+                        </Grid.Column>
+                        <Grid.Column>
                         <h4>Surface Interval: {Session.get("plannedSI")}</h4>
+                        </Grid.Column>
+                        <Grid.Column>
                         <h4>Final Pressure Group: {Session.get("fpressure")}</h4>
-                    </Grid.Row>
+                        </Grid.Column>
+                    </Grid>
                 </Grid.Column>
             </Grid>
 
