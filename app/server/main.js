@@ -4,4 +4,4 @@ import '../imports/api/dive/dive.js';
 import '../imports/api/PADI/PADITableOne';
 import '../imports/api/PADI/PADITableTwo';
 import '../imports/api/PADI/PADITableThree';
-import '../imports/api/PADI/PADI_PGI'
+import '../imports/api/PADI/PADI_PGI';
