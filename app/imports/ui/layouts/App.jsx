@@ -11,6 +11,8 @@ import ListDives from "../pages/ListDives";
 import InputDive from "../pages/InputDive";
 import Dive from "../components/Dive";
 /** Top-level layout component for this application. Called in imports/startup/client/startup.jsx. */
+import AddDiveAdmin from "../pages/AddDiveAdmin";
+/** Top-level layout component for this application. Called in imports/startup/client/Startup.jsx. */
 class App extends React.Component {
   render() {
     return (
@@ -24,6 +26,9 @@ class App extends React.Component {
                 <Route path="/inputdive" component={InputDive}/>
                 <Route path="/dive" component={Dive}/>
                 {/*<ProtectedRoute path="/add" component={AddDiveAdmin}/>*/}
+                <Route path="/signin" component={Signin}/>
+                <Route path="/signup" component={Signup}/>
+                <ProtectedRoute path="/add" component={AddDiveAdmin}/>
                 {/*<ProtectedRoute path="/edit/:_id" component={EditDiveAdmin}/>*/}
                 <Route component={NotFound}/>
             </Switch>
