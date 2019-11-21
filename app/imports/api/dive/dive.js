@@ -7,7 +7,6 @@ const Dives = new Mongo.Collection('Dives');
 
 /** Create a schema to constrain the structure of documents associated with this collection. */
 const DiveSchema = new SimpleSchema({
-  name: { type: String, defaultValue: '' },
   createdAt: Date,
   totalBottomTime: String,
   depth: {type: Number, defaultValue: 0},

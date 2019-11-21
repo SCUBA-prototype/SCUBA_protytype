@@ -4,28 +4,19 @@ import { Dives } from '../../api/dive/dive.js';
 
 /** Initialize the database with a default data document. */
 function addData(data) {
-  console.log(`  Adding: ${data.name} `);
+  console.log(`  Adding: ${data.name} (${data.owner})`);
   Dives.insert(data);
 }
 
-
 /** Initialize the collection if empty. */
 if (Dives.find().count() === 0) {
-  if (Meteor.settings.defaultDives) {
+  if (Meteor.settings.defaultData) {
     console.log('Creating default data.');
-    Meteor.settings.defaultDives.map((data) => addData(data));
-  } else console.log(`default dives not intitialized`)
+    Meteor.settings.defaultData.map(data => addData(data));
+  }
 }
 
-
 /** This subscription publishes only the documents associated with the logged in user */
-Meteor.publish('Dives', function publish() {
-    return Dives.find({depth: {
-      $lt: 150
-      }}, {limit: 1});
-  return this.ready();
-});
-
 Meteor.publish('Dive', function publish() {
   if (this.userId) {
     const username = Meteor.users.findOne(this.userId).username;
