@@ -259,14 +259,14 @@ class AddDiveAdmin extends React.Component {
                         </Form>
                         <Form style={divStyle}>
                             <Button
-                                floated="center"
+                                floated="right"
                                 color="blue"
                                 inverted
                                 onClick={this.submitDive}
                             > Submit </Button>
                             <Button
                                 onClick={this.clear}
-                                floated="center"
+                                floated="right"
                                 color="red"
                                 inverted> Reset
                             </Button>
@@ -323,14 +323,14 @@ class AddDiveAdmin extends React.Component {
                         </Form>
                         <Form style={divStyle}>
                             <Button
-                                floated="center"
+                                floated="right"
                                 color="blue"
                                 inverted
                                 onClick={this.submitSI}
                             > Submit </Button>
                             <Button
                                 onClick={this.clear}
-                                floated="center"
+                                floated="right"
                                 color="red"
                                 inverted> Reset
                             </Button>
