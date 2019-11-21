@@ -7,39 +7,42 @@
 .main-text{
   color: white;
   text-shadow: 2px 2px 4px #000000;
-  font-size: 125px;
+  font-size: 50px;
   line-height: 2;
   font-weight: 600;
   letter-spacing: -0.02em;
-  font-family: "Fira Sans", sans-serif;
-  padding-top: 10px;
   padding-bottom: 5px;
+}
+
+.landing-shadow {
+  background-color: rgba(0,0,0,.25);
+  height: inherit;
+}
+div.ui.centered.card.landing-card {
+  width: 560px;
+}
+p.padi-plan {
+  text-color: white;
 }
 
 .side-text{
   color: white;
   text-shadow: 2px 2px 4px #000000;
-  font-size: 30px;
+  font-size: 20px;
   line-height: 1;
-  font-weight: 600;
+  font-weight: 500;
   letter-spacing: -0.02em;
   font-family: "Fira Sans", sans-serif;
   padding-top: 5px;
-  padding-bottom: 5px;
-}
-
-.large.text {
-  color: white;
-  font-size: 10rem;
 }
 
 .description{
-  padding-top: 50px;
-  padding-bottom: 50px;
+  padding-top: 25px;
+  padding-bottom: 25px;
 }
 
 .title-main{
-  font-size: 60px;
+  font-size: 20px;
   margin-top: 10px;
 }
 
@@ -52,4 +55,23 @@
 
 div.ui.search > div.results{
   left: 33.75%;
+}
+div.ui.initial-dive-card {
+  padding-right: 15px;
+}
+h2.starting-pressure-group {
+  margin-left: 20px;
+  font-size: 14px;
+}
+.date {
+  margin-left: 20px;
+}
+div.column.result-dive-card {
+  float: right;
+}
+div.ui.initial-dive-card {
+  padding-right: 20px;
+}
+div.ui.card-group {
+  padding-left: 40px;
 }
