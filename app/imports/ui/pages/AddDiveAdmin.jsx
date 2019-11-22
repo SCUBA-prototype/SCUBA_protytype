@@ -284,8 +284,7 @@ class AddDiveAdmin extends React.Component {
                     <h4>Actual Bottom Time: {Session.get("actualBT")}</h4>
                     <h4>Total Bottom Time: {Session.get("totalBT")}</h4>
                     <h4>Final Pressure Group: {Session.get("pressureGroup2")}</h4>
-                    <i>Note: If Final Pressure Group does not show anything, it means that you have exceeded the max Actual
-                        Bottom Time entered and you will need to go lower.</i>
+                    <i>Note: If Final Pressure Group does not show anything, refer to the PADI Table. Your Total Bottom time should correspond based on the depth.</i>
                 </Card>
                 <Card>
                     <Container style={{ padding: 20 }}>
