@@ -2,7 +2,7 @@ import React from "react";
 import { PADITableOne } from "/imports/api/PADI/PADITableOne";
 import { PADITableTwo } from "/imports/api/PADI/PADITableTwo";
 import { PADITableThree } from "/imports/api/PADI/PADITableThree";
-import { Grid, Header, Container, Form, Loader, Card, Modal, Button, Icon, Image } from "semantic-ui-react";
+import {  Header, Container, Form, Loader, Card, Button, Grid} from "semantic-ui-react";
 import { Bert } from "meteor/themeteorchef:bert";
 import { Meteor } from "meteor/meteor";
 import { withTracker } from "meteor/react-meteor-data";
@@ -207,8 +207,16 @@ class AddDiveAdmin extends React.Component {
         Session.setDefault("actualBT", "");
         Session.setDefault("totalBT", "");
         return (
+            <Grid style={{ paddingBottom: '25px'}}>
+                <Grid.Row centered columns={2} style={{ paddingTop: '25px' }}>
+                    <Grid.Row>
+                <Header style={{ padding: 10 }} as="h3" textAlign="center" i>
+                   * Developer Notes: Do not use this planner to plan your dives in real life! This is a prototype that was created by Software Engineering Students to make an application that plans dives
+                </Header>
+                    </Grid.Row>
+                    <Grid.Row>
             <Card.Group className="card-group" >
-                <Card className="initial-dive-card">
+                <Card className="initial-dive-card" centered>
                     <Header style={{ padding: 10 }} as="h2" textAlign="center">
                         React Recreational Dive Table
                     </Header>
@@ -273,12 +281,12 @@ class AddDiveAdmin extends React.Component {
                         </Form>
                     </Container>
                 </Card>
-                <Card style={{ padding: 20 }}>
+                <Card style={{ padding: 20 }} centered>
                     <Header as="h2" textAlign="center" style={{ paddingBottom: 25 }}>Your Initial Dive</Header>
                     <Card.Meta>
                         <span>The results of your dive based on your input parameters.</span>
                     </Card.Meta>
-                    <h4> Starting Pressure Group: {Session.get("pgi")} </h4>
+                    <h4>Starting Pressure Group: {Session.get("pgi")} </h4>
                     <h4>Depth: {Session.get("depth")}</h4>
                     <h4>Residual Nitrogen Time: {Session.get("pressureGroup1")}</h4>
                     <h4>Actual Bottom Time: {Session.get("actualBT")}</h4>
@@ -286,7 +294,7 @@ class AddDiveAdmin extends React.Component {
                     <h4>Final Pressure Group: {Session.get("pressureGroup2")}</h4>
                     <i>Note: If Final Pressure Group does not show anything, refer to the PADI Table. Your Total Bottom time should correspond based on the depth.</i>
                 </Card>
-                <Card>
+                <Card centered>
                     <Container style={{ padding: 20 }}>
                         <Header as="h2" textAlign="center" style={{ paddingBottom: 25 }}>Add Another Dive</Header>
                         <Card.Meta>
@@ -336,7 +344,7 @@ class AddDiveAdmin extends React.Component {
                         </Form>
                     </Container>
                 </Card>
-                <Card style={{ padding: 20 }}>
+                <Card style={{ padding: 20 }} centered>
                     <Header as="h2" textAlign="center" style={{ paddingBottom: 25 }}>Your Next Dive</Header>
                     <Card.Meta>
                         <span>The results of your next dive based on your next dives input parameters.</span>
@@ -346,7 +354,9 @@ class AddDiveAdmin extends React.Component {
                     <h4>Final Pressure Group: {Session.get("fpressure")}</h4>
                 </Card>
             </Card.Group>
-
+                    </Grid.Row>
+                </Grid.Row>
+            </Grid>
 
         );
     }
