@@ -1,14 +1,14 @@
 import React from "react";
-import { PADITableOne } from "/imports/api/PADI/PADITableOne";
-import { PADITableTwo } from "/imports/api/PADI/PADITableTwo";
-import { PADITableThree } from "/imports/api/PADI/PADITableThree";
-import {  Header, Container, Form, Loader, Card, Button, Grid} from "semantic-ui-react";
-import { Bert } from "meteor/themeteorchef:bert";
-import { Meteor } from "meteor/meteor";
-import { withTracker } from "meteor/react-meteor-data";
+import {PADITableOne} from "/imports/api/PADI/PADITableOne";
+import {PADITableTwo} from "/imports/api/PADI/PADITableTwo";
+import {PADITableThree} from "/imports/api/PADI/PADITableThree";
+import {Header, Container, Form, Loader, Card, Button, Grid} from "semantic-ui-react";
+import {Bert} from "meteor/themeteorchef:bert";
+import {Meteor} from "meteor/meteor";
+import {withTracker} from "meteor/react-meteor-data";
 import PropTypes from "prop-types";
-import { Session } from "meteor/session";
-import { PADI_PGI } from "/imports/api/PADI/PADI_PGI";
+import {Session} from "meteor/session";
+import {PADI_PGI} from "/imports/api/PADI/PADI_PGI";
 
 const _ = require("underscore");
 
@@ -17,7 +17,7 @@ class AddDiveAdmin extends React.Component {
     /** Bind 'this' so that a ref to the Form can be saved in formRef and communicated between render() and submit(). */
     constructor(props) {
         super(props);
-        let items = [ this.Card ]
+        let items = [this.Card]
         this.state = {
             pgi: "",
             ipgi: "",
@@ -52,14 +52,14 @@ class AddDiveAdmin extends React.Component {
     /** Notify the user of the results of the submit. If successful, clear the form. */
     insertCallback(error) {
         if (error) {
-            Bert.alert({ type: "danger", message: `Add failed: ${error.message}` });
+            Bert.alert({type: "danger", message: `Add failed: ${error.message}`});
         } else {
-            Bert.alert({ type: "success", message: "Add succeeded" });
+            Bert.alert({type: "success", message: "Add succeeded"});
         }
     }
 
-    updateState(e, { name, value }) {
-        this.setState({ [name]: value });
+    updateState(e, {name, value}) {
+        this.setState({[name]: value});
         Session.set(name, value);
     }
 
@@ -143,9 +143,9 @@ class AddDiveAdmin extends React.Component {
 
     dropdownFive() {
         let i = -1;
-        const dropdownFive= _.map(
+        const dropdownFive = _.map(
             _.keys(this.props.one[this.state.depth]),
-            function(val) {
+            function (val) {
                 i++;
                 return {
                     key: i,
@@ -158,6 +158,7 @@ class AddDiveAdmin extends React.Component {
             dropdownFive: dropdownFive
         });
     }
+
 // ---------------------------------- Surface Interval ----------------------------------------
     dropdownThree() {
         let i = -1;
@@ -196,7 +197,7 @@ class AddDiveAdmin extends React.Component {
     }
 
     renderComponent() {
-        const divStyle = { paddingBottom: '50px', paddingTop: '50px' };
+        const divStyle = {paddingBottom: '50px', paddingTop: '50px'};
         Session.setDefault("pgi", "");
         Session.setDefault("ipgi", "");
         Session.setDefault("depth", "");
@@ -207,153 +208,158 @@ class AddDiveAdmin extends React.Component {
         Session.setDefault("actualBT", "");
         Session.setDefault("totalBT", "");
         return (
-            <Grid style={{ paddingBottom: '25px'}}>
-                <Grid.Row centered columns={2} style={{ paddingTop: '25px' }}>
-                    <Grid.Row>
-                <Header style={{ padding: 10 }} as="h3" textAlign="center" i>
-                   * Developer Notes: Do not use this planner to plan your dives in real life! This is a prototype that was created by Software Engineering Students to make an application that plans dives
-                </Header>
+            <Grid >
+                <Grid.Row centered columns={2} style={{paddingTop: '25px'}}>
+                    <Grid.Row style={{paddingBottom: '25px'}}>
+                        <Header style={{padding: 10}} as="h4" textAlign="center" as="i" >
+                            * Developer Notes: Do not use this planner to plan your dives in real life! This is a
+                            prototype that was created by Software Engineering Students to make an application that
+                            plans dives
+                        </Header>
                     </Grid.Row>
                     <Grid.Row>
-            <Card.Group className="card-group" >
-                <Card className="initial-dive-card" centered>
-                    <Header style={{ padding: 10 }} as="h2" textAlign="center">
-                        React Recreational Dive Table
-                    </Header>
-                    <Card.Meta>
-                        <span className='date'>Enter parameters for your initial dive</span>
-                    </Card.Meta>
-                    <Container style={{ padding: 20 }}>
-                        <Form>
-                            <h2 style={{ fontSize: 14 }}>Starting Pressure Group</h2>
-                            <Form.Dropdown
-                                fluid
-                                search
-                                selection
-                                options={this.state.dropdownOne}
-                                name={"pgi"}
-                                value={this.state.pgi}
-                                onChange={this.updateState}
-                                onClick={this.dropdownOne}
-                                placeholder={"Select Initial Pressure Group"}
-                                style={{ minWidth: 150 }}
-                            />
-                            <h2 style={{ fontSize: 14 }}>Planned Diving depth</h2>
-                            <Form.Dropdown
-                                fluid
-                                search
-                                selection
-                                options={this.state.dropdownTwo}
-                                name={"depth"}
-                                value={this.state.depth}
-                                onChange={this.updateState}
-                                onClick={this.dropdownTwo}
-                                placeholder={"Select Depth in Meters"}
-                                style={{ minWidth: 150 }}
-                            />
-                            <h2 style={{ fontSize: 14 }}>Planned Diving Time</h2>
-                            <Form.Dropdown
-                                fluid
-                                search
-                                selection
-                                options={this.state.dropdownFive}
-                                name={"actualBT"}
-                                value={this.state.actualBT}
-                                onChange={this.updateState}
-                                onClick={this.dropdownFive}
-                                placeholder={"Select Time in Minutes"}
-                                style={{ minWidth: 150 }}
-                            />
-                        </Form>
-                        <Form style={divStyle}>
-                            <Button
-                                floated="right"
-                                color="blue"
-                                inverted
-                                onClick={this.submitDive}
-                            > Submit </Button>
-                            <Button
-                                onClick={this.clear}
-                                floated="right"
-                                color="red"
-                                inverted> Reset
-                            </Button>
-                        </Form>
-                    </Container>
-                </Card>
-                <Card style={{ padding: 20 }} centered>
-                    <Header as="h2" textAlign="center" style={{ paddingBottom: 25 }}>Your Initial Dive</Header>
-                    <Card.Meta>
-                        <span>The results of your dive based on your input parameters.</span>
-                    </Card.Meta>
-                    <h4>Starting Pressure Group: {Session.get("pgi")} </h4>
-                    <h4>Depth: {Session.get("depth")}</h4>
-                    <h4>Residual Nitrogen Time: {Session.get("pressureGroup1")}</h4>
-                    <h4>Actual Bottom Time: {Session.get("actualBT")}</h4>
-                    <h4>Total Bottom Time: {Session.get("totalBT")}</h4>
-                    <h4>Final Pressure Group: {Session.get("pressureGroup2")}</h4>
-                    <i>Note: If Final Pressure Group does not show anything, refer to the PADI Table. Your Total Bottom time should correspond based on the depth.</i>
-                </Card>
-                <Card centered>
-                    <Container style={{ padding: 20 }}>
-                        <Header as="h2" textAlign="center" style={{ paddingBottom: 25 }}>Add Another Dive</Header>
-                        <Card.Meta>
-                            <span style={{ paddingBottom: 25 }}>Use this feature for adding multiple dives to the same day.</span>
-                        </Card.Meta>
-                        <Form style={{ marginTop: 25 }}>
-                            <h2 style={{ fontSize: 14 }}>Initial Pressure Group</h2>
-                            <Form.Dropdown
-                                fluid
-                                search
-                                selection
-                                options={this.state.dropdownThree}
-                                name={"ipgi"}
-                                value={this.state.ipgi}
-                                onChange={this.updateState}
-                                onClick={this.dropdownThree}
-                                placeholder={"Select Initial Pressure Group"}
-                                style={{ minWidth: 150 }}
-                            />
-                            <h2 style={{ fontSize: 14 }}>Planned Surface Interval</h2>
-                            <Form.Dropdown
-                                fluid
-                                search
-                                selection
-                                options={this.state.dropdownFour}
-                                name={"plannedSI"}
-                                value={this.state.plannedSI}
-                                onChange={this.updateState}
-                                onClick={this.dropdownFour}
-                                placeholder={"Surface Interval"}
-                                style={{ minWidth: 150 }}
-                            />
-                        </Form>
-                        <Form style={divStyle}>
-                            <Button
-                                floated="right"
-                                color="blue"
-                                inverted
-                                onClick={this.submitSI}
-                            > Submit </Button>
-                            <Button
-                                onClick={this.clear}
-                                floated="right"
-                                color="red"
-                                inverted> Reset
-                            </Button>
-                        </Form>
-                    </Container>
-                </Card>
-                <Card style={{ padding: 20 }} centered>
-                    <Header as="h2" textAlign="center" style={{ paddingBottom: 25 }}>Your Next Dive</Header>
-                    <Card.Meta>
-                        <span>The results of your next dive based on your next dives input parameters.</span>
-                    </Card.Meta>
-                    <h4>Starting Pressure Group: {Session.get("ipgi")} </h4>
-                    <h4>Surface Interval: {Session.get("plannedSI")}</h4>
-                    <h4>Final Pressure Group: {Session.get("fpressure")}</h4>
-                </Card>
-            </Card.Group>
+                        <Card.Group className="card-group">
+                            <Card className="initial-dive-card" centered>
+                                <Header style={{padding: 10}} as="h2" textAlign="center">
+                                    Dive Planner
+                                </Header>
+                                <Card.Meta>
+                                    <span className='date'> Calculates the amount of time you need to stay in the water while also telling the pressure group
+                                        you end with at the end of your diving session. </span>
+                                </Card.Meta>
+                                <Container style={{padding: 20}}>
+                                    <Form>
+                                        <h2 style={{fontSize: 14}}>Starting Pressure Group</h2>
+                                        <Form.Dropdown
+                                            fluid
+                                            search
+                                            selection
+                                            options={this.state.dropdownOne}
+                                            name={"pgi"}
+                                            value={this.state.pgi}
+                                            onChange={this.updateState}
+                                            onClick={this.dropdownOne}
+                                            placeholder={"Select Initial Pressure Group"}
+                                            style={{minWidth: 150}}
+                                        />
+                                        <h2 style={{fontSize: 14}}>Planned Diving depth</h2>
+                                        <Form.Dropdown
+                                            fluid
+                                            search
+                                            selection
+                                            options={this.state.dropdownTwo}
+                                            name={"depth"}
+                                            value={this.state.depth}
+                                            onChange={this.updateState}
+                                            onClick={this.dropdownTwo}
+                                            placeholder={"Select Depth in Meters"}
+                                            style={{minWidth: 150}}
+                                        />
+                                        <h2 style={{fontSize: 14}}>Planned Diving Time</h2>
+                                        <Form.Dropdown
+                                            fluid
+                                            search
+                                            selection
+                                            options={this.state.dropdownFive}
+                                            name={"actualBT"}
+                                            value={this.state.actualBT}
+                                            onChange={this.updateState}
+                                            onClick={this.dropdownFive}
+                                            placeholder={"Select Time in Minutes"}
+                                            style={{minWidth: 150}}
+                                        />
+                                    </Form>
+                                    <Form style={divStyle}>
+                                        <Button
+                                            floated="right"
+                                            color="blue"
+                                            inverted
+                                            onClick={this.submitDive}
+                                        > Submit </Button>
+                                        <Button
+                                            onClick={this.clear}
+                                            floated="right"
+                                            color="red"
+                                            inverted> Reset
+                                        </Button>
+                                    </Form>
+                                </Container>
+                            </Card>
+                            <Card style={{padding: 20}} centered>
+                                <Header as="h2" textAlign="center" style={{paddingBottom: 25}}> Planning Results </Header>
+                                <Card.Meta>
+                                    <span>The results of your dive based on your input parameters.</span>
+                                </Card.Meta>
+                                <h4 as="i">Starting Pressure Group: {Session.get("pgi")} </h4>
+                                <h4 as="i">Depth: {Session.get("depth")}</h4>
+                                <h4 >Residual Nitrogen Time: {Session.get("pressureGroup1")}</h4>
+                                <h4 as="i">Actual Bottom Time: {Session.get("actualBT")}</h4>
+                                <h4>Total Bottom Time: {Session.get("totalBT")}</h4>
+                                <h4>Final Pressure Group: {Session.get("pressureGroup2")}</h4>
+                                <i>Note: If Final Pressure Group does not show anything, refer to the PADI Table. Your
+                                    Total Bottom time should correspond based on the depth.</i>
+                            </Card>
+                            <Card centered>
+                                <Container style={{padding: 20}}>
+                                    <Header as="h2" textAlign="center" style={{paddingBottom: 25}}> Surface Interval Group Calculator</Header>
+                                    <Card.Meta>
+                                        <span style={{paddingBottom: 25}}> Use this feature if you plan to dive multiple times. This to calculate the initial
+                                            pressure group you will need to start with in the Dive Planner.</span>
+                                    </Card.Meta>
+                                    <Form style={{marginTop: 25}}>
+                                        <h2 style={{fontSize: 14}}>Initial Pressure Group</h2>
+                                        <Form.Dropdown
+                                            fluid
+                                            search
+                                            selection
+                                            options={this.state.dropdownThree}
+                                            name={"ipgi"}
+                                            value={this.state.ipgi}
+                                            onChange={this.updateState}
+                                            onClick={this.dropdownThree}
+                                            placeholder={"Select Initial Pressure Group"}
+                                            style={{minWidth: 150}}
+                                        />
+                                        <h2 style={{fontSize: 14}}>Planned Surface Interval</h2>
+                                        <Form.Dropdown
+                                            fluid
+                                            search
+                                            selection
+                                            options={this.state.dropdownFour}
+                                            name={"plannedSI"}
+                                            value={this.state.plannedSI}
+                                            onChange={this.updateState}
+                                            onClick={this.dropdownFour}
+                                            placeholder={"Surface Interval"}
+                                            style={{minWidth: 150}}
+                                        />
+                                    </Form>
+                                    <Form style={divStyle}>
+                                        <Button
+                                            floated="right"
+                                            color="blue"
+                                            inverted
+                                            onClick={this.submitSI}
+                                        > Submit </Button>
+                                        <Button
+                                            onClick={this.clear}
+                                            floated="right"
+                                            color="red"
+                                            inverted> Reset
+                                        </Button>
+                                    </Form>
+                                </Container>
+                            </Card>
+                            <Card style={{padding: 20}} centered>
+                                <Header as="h2" textAlign="center" style={{paddingBottom: 25}}>Your Next Dive</Header>
+                                <Card.Meta>
+                                    <span> Results of the Final Pressure Group after a certain amount of time in the surface. </span>
+                                </Card.Meta>
+                                <h4 as="i">Starting Pressure Group: {Session.get("ipgi")} </h4>
+                                <h4 as="i">Surface Interval: {Session.get("plannedSI")}</h4>
+                                <h4>Final Pressure Group: {Session.get("fpressure")}</h4>
+                            </Card>
+                        </Card.Group>
                     </Grid.Row>
                 </Grid.Row>
             </Grid>
