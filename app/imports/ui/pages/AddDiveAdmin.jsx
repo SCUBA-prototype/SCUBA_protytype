@@ -2,7 +2,7 @@ import React from "react";
 import {PADITableOne} from "/imports/api/PADI/PADITableOne";
 import {PADITableTwo} from "/imports/api/PADI/PADITableTwo";
 import {PADITableThree} from "/imports/api/PADI/PADITableThree";
-import {Header, Container, Form, Loader, Card, Button, Grid} from "semantic-ui-react";
+import {Header, Container, Form, Loader, Card, Button, Grid, Image} from "semantic-ui-react";
 import {Bert} from "meteor/themeteorchef:bert";
 import {Meteor} from "meteor/meteor";
 import {withTracker} from "meteor/react-meteor-data";
@@ -362,6 +362,9 @@ class AddDiveAdmin extends React.Component {
                             </Card>
                         </Card.Group>
                     </Grid.Row>
+                </Grid.Row>
+                <Grid.Row centered>
+                    <Image src={"https://cdn.instructables.com/F3E/ERWV/077EP281UWG/F3EERWV077EP281UWG.LARGE.jpg?auto=webp&fit=bounds"}/>
                 </Grid.Row>
             </Grid>
 
