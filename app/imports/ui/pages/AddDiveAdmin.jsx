@@ -79,8 +79,8 @@ class AddDiveAdmin extends React.Component {
 
     submitSI() {
         const plannedSI = Session.get("plannedSI");
-        const ipgi = Session.get("ipgi");
-        const fpressure = this.props.two[ipgi][plannedSI];
+        const pressureGroup2 = Session.get("pressureGroup2");
+        const fpressure = this.props.two[pressureGroup2][plannedSI];
         Session.set("fpressure", fpressure);
         this.clear();
     }
@@ -88,7 +88,6 @@ class AddDiveAdmin extends React.Component {
     clear() {
         this.setState({
             pgi: "",
-            ipgi: "",
             time: "",
             plannedSI: "",
             pressureGroup1: "",
@@ -180,8 +179,9 @@ class AddDiveAdmin extends React.Component {
 
     dropdownFour() {
         let i = -1;
+        const ipgi  = Session.get("pressureGroup2")
         const dropdownFour = _.map(
-            _.keys(this.props.two[this.state.ipgi]),
+            _.keys(this.props.two[ipgi]),
             function (val) {
                 i++;
                 return {
@@ -199,7 +199,6 @@ class AddDiveAdmin extends React.Component {
     renderComponent() {
         const divStyle = {paddingBottom: '50px', paddingTop: '50px'};
         Session.setDefault("pgi", "");
-        Session.setDefault("ipgi", "");
         Session.setDefault("depth", "");
         Session.setDefault("pressureGroup1", "");
         Session.setDefault("pressureGroup2", "");
@@ -209,7 +208,7 @@ class AddDiveAdmin extends React.Component {
         Session.setDefault("totalBT", "");
         return (
             <Grid >
-                <Grid.Row centered columns={2} style={{paddingTop: '25px'}}>
+                <Grid.Row centered columns={3} style={{paddingTop: '25px'}}>
                     <Grid.Row style={{paddingBottom: '25px'}}>
                         <Header style={{padding: 10}} as="h4" textAlign="center" as="i" >
                             * Developer Notes: Do not use this planner to plan your dives in real life! This is a
@@ -299,6 +298,8 @@ class AddDiveAdmin extends React.Component {
                                 <i>Note: If Final Pressure Group does not show anything, refer to the PADI Table. Your
                                     Total Bottom time should correspond based on the depth.</i>
                             </Card>
+
+
                             <Card centered>
                                 <Container style={{padding: 20}}>
                                     <Header as="h2" textAlign="center" style={{paddingBottom: 25}}> Surface Interval Group Calculator</Header>
@@ -306,19 +307,19 @@ class AddDiveAdmin extends React.Component {
                                         <span style={{paddingBottom: 25}}> Use this feature if you plan to dive multiple times. This to calculate the initial
                                             pressure group you will need to start with in the Dive Planner.</span>
                                     </Card.Meta>
+                                    <h2 style={{fontSize: 14}}>Initial Pressure Group</h2>
+                                    {/*<h2 as="i" style={{fontSize: 14}}>{Session.get("pressureGroup2")} </h2>*/}
                                     <Form style={{marginTop: 25}}>
-                                        <h2 style={{fontSize: 14}}>Initial Pressure Group</h2>
                                         <Form.Dropdown
                                             fluid
                                             search
                                             selection
                                             options={this.state.dropdownThree}
-                                            name={"ipgi"}
-                                            value={this.state.ipgi}
+                                            name={"pressureGroup2"}
+                                            value={this.state.pressureGroup2}
                                             onChange={this.updateState}
                                             onClick={this.dropdownThree}
-                                            placeholder={"Select Initial Pressure Group"}
-                                            style={{minWidth: 150}}
+                                            placeHolder = {this.state.pressureGroup2}
                                         />
                                         <h2 style={{fontSize: 14}}>Planned Surface Interval</h2>
                                         <Form.Dropdown
@@ -355,7 +356,7 @@ class AddDiveAdmin extends React.Component {
                                 <Card.Meta>
                                     <span> Results of the Final Pressure Group after a certain amount of time in the surface. </span>
                                 </Card.Meta>
-                                <h4 as="i">Starting Pressure Group: {Session.get("ipgi")} </h4>
+                                <h4 as="i">Starting Pressure Group: {Session.get("pressureGroup2")} </h4>
                                 <h4 as="i">Surface Interval: {Session.get("plannedSI")}</h4>
                                 <h4>Final Pressure Group: {Session.get("fpressure")}</h4>
                             </Card>
