@@ -21,7 +21,7 @@ class AddDiveAdmin extends React.Component {
     this.state = {
       dives: [],
       pai: 0,
-      newRow: true,
+      newRow: false,
       pgi: "",
       ipgi: "",
       time: "",
@@ -39,6 +39,7 @@ class AddDiveAdmin extends React.Component {
       submitDisable: true,
     };
     this.planAnother = this.planAnother.bind(this);
+    this.LogRow = this.LogRow.bind(this);
     this.insertCallback = this.insertCallback.bind(this);
     this.updateState = this.updateState.bind(this);
     this.renderComponent = this.renderComponent.bind(this);
@@ -63,29 +64,31 @@ class AddDiveAdmin extends React.Component {
 
 
   planAnother() {
+    let newState = this.state;
     if (Session.get("pressureGroup2") || Session.get("plannedSI") || Session.get("fpressure")) {
       let newDive = [Session.get("pressureGroup2"), Session.get("plannedSI"), Session.get("fpressure")];
-      this.setState({ ...this.state, dives: this.state.dives.push(newDive) }, () => { console.log(this.state.dives); });
-      this.setState({ ...this.state, newRow: true }, () => { console.log(this.state.newRow); });
+      newState.newRow = true;
+      newState.dives.push(newDive);
     } else {
       return null;
     }
-    this.setState({ ...this.state, pai: this.state.pai + 1 }, () => { console.log(this.state.pai); });
+    newState.pai++;
+    this.setState(newState);
   }
 
   LogRow() {
     let newComp = <Grid.Row>
       <Card.Group>
-        <Card>
+        {this.state.dives.map((dive) => <Card>
           <Header as="h2" textAlign="center" style={{ paddingBottom: 25 }}> Your Dive Log </Header>
           <Card.Meta>
             <span> Results of your previous dive. </span>
           </Card.Meta>
-          <h4 as="i">Previous Dive: {this.state.dives[this.state.pai]} </h4>
-        </Card>
+          <h4 as="i">Previous Dive: {dive} </h4>
+        </Card>)}
       </Card.Group>
     </Grid.Row>;
-    if (this.newRow) {
+    if (this.state.newRow) {
       return (newComp);
     } else return null;
   }
@@ -407,9 +410,8 @@ class AddDiveAdmin extends React.Component {
                 </Card>
               </Card.Group>
             </Grid.Row>
-            {console.log(1)}
-            {console.log(this.LogRow())}
             { this.state.newRow ? this.LogRow() : null }
+            { this.RenderTable() }
           </Grid.Row>
         </Grid>;
 
