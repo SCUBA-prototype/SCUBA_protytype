@@ -7,7 +7,6 @@ import { Bert } from "meteor/themeteorchef:bert";
 import { Meteor } from "meteor/meteor";
 import { withTracker } from "meteor/react-meteor-data";
 import PropTypes from "prop-types";
-import LogRow from "/imports/ui/components/LogRow";
 import { Session } from "meteor/session";
 import { PADI_PGI } from "/imports/api/PADI/PADI_PGI";
 
@@ -62,11 +61,12 @@ class AddDiveAdmin extends React.Component {
     }
   }
 
+
   planAnother() {
     if (Session.get("pressureGroup2") || Session.get("plannedSI") || Session.get("fpressure")) {
       let newDive = [Session.get("pressureGroup2"), Session.get("plannedSI"), Session.get("fpressure")];
       this.setState({ ...this.state, dives: this.state.dives.push(newDive) }, () => { console.log(this.state.dives); });
-      this.setState({ newRow: true }, () => { console.log(this.state.newRow); });
+      this.setState({ ...this.state, newRow: true }, () => { console.log(this.state.newRow); });
     } else {
       return null;
     }
@@ -74,7 +74,7 @@ class AddDiveAdmin extends React.Component {
   }
 
   LogRow() {
-    const newComp = <Grid.Row>
+    let newComp = <Grid.Row>
       <Card.Group>
         <Card>
           <Header as="h2" textAlign="center" style={{ paddingBottom: 25 }}> Your Dive Log </Header>
@@ -407,9 +407,13 @@ class AddDiveAdmin extends React.Component {
                 </Card>
               </Card.Group>
             </Grid.Row>
+            {console.log(1)}
+            {console.log(this.LogRow())}
+            { this.state.newRow ? this.LogRow() : null }
           </Grid.Row>
-        </Grid>
-    { this.state.newRow ? <LogRow /> : null }
+        </Grid>;
+
+    //{ this.state.newRow ? <LogRow /> : null }
     //<RenderTable />;
 
     return (Results);
