@@ -7,6 +7,7 @@ import { Bert } from "meteor/themeteorchef:bert";
 import { Meteor } from "meteor/meteor";
 import { withTracker } from "meteor/react-meteor-data";
 import PropTypes from "prop-types";
+import LogRow from "/imports/ui/components/LogRow";
 import { Session } from "meteor/session";
 import { PADI_PGI } from "/imports/api/PADI/PADI_PGI";
 
@@ -21,7 +22,7 @@ class AddDiveAdmin extends React.Component {
     this.state = {
       dives: [],
       pai: 0,
-      newRow: false,
+      newRow: true,
       pgi: "",
       ipgi: "",
       time: "",
@@ -63,18 +64,13 @@ class AddDiveAdmin extends React.Component {
 
   planAnother() {
     if (Session.get("pressureGroup2") || Session.get("plannedSI") || Session.get("fpressure")) {
-      this.setState({ newRow: true });
-      Session.set("newRow", "true");
-      console.log(this.state.dives);
-      console.log(this.state.dives);
-      console.log(this.state.dives);
-      console.log(this.state.pai);
-      this.state.dives[this.state.pai].push([Session.get("pressureGroup2"), Session.get("plannedSI"), Session.get("fpressure")]);
-      console.log(this.state.dives);
+      let newDive = [Session.get("pressureGroup2"), Session.get("plannedSI"), Session.get("fpressure")];
+      this.setState({ ...this.state, dives: this.state.dives.push(newDive) }, () => { console.log(this.state.dives); });
+      this.setState({ newRow: true }, () => { console.log(this.state.newRow); });
     } else {
       return null;
     }
-    this.setState({ pai: this.state.pai + 1 });
+    this.setState({ ...this.state, pai: this.state.pai + 1 }, () => { console.log(this.state.pai); });
   }
 
   LogRow() {
@@ -413,7 +409,7 @@ class AddDiveAdmin extends React.Component {
             </Grid.Row>
           </Grid.Row>
         </Grid>
-    { this.state.newRow ? <LogRow/> : null }
+    { this.state.newRow ? <LogRow /> : null }
     //<RenderTable />;
 
     return (Results);
