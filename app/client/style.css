@@ -76,3 +76,8 @@ div.ui.card-group {
   padding-left: 40px;
 }
 
+.padding{
+  padding-left: 10px;
+  padding-right: 10px;
+  padding-bottom: 10px;
+}

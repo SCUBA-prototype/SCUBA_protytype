@@ -66,7 +66,10 @@ class AddDiveAdmin extends React.Component {
   planAnother() {
     let newState = this.state;
     if (Session.get("pressureGroup2") || Session.get("plannedSI") || Session.get("fpressure")) {
-      let newDive = [Session.get("pressureGroup2"), Session.get("plannedSI"), Session.get("fpressure")];
+      let newDive = ["Starting Pressure : ", " [ ", Session.get("pgi"), " ] ",
+                    "Depth : ", " [ ", Session.get("depth"), " ] ",
+                    "Surface Interval : ", " [ ",  Session.get("plannedSI"), " ] ",
+                    "Ending Pressure Group : ", " [ ", Session.get("fpressure"), " ] "];
       newState.newRow = true;
       newState.dives.push(newDive);
     } else {
@@ -76,17 +79,30 @@ class AddDiveAdmin extends React.Component {
     this.setState(newState);
   }
 
+  handleClick = dive => event => {
+    const { dives } = this.state;
+    dives.splice(dives.indexOf(dives), 1);
+
+    this.setState({
+      dives
+    });
+  };
+
   LogRow() {
     let newComp = <Grid.Row>
-      <Card.Group>
-        {this.state.dives.map((dive) => <Card>
-          <Header as="h2" textAlign="center" style={{ paddingBottom: 25 }}> Your Dive Log </Header>
+        {this.state.dives.map((dive) => <Card fluid>
+          <Header as="h2" textAlign="center"> Your Dive Log </Header>
           <Card.Meta>
             <span> Results of your previous dive. </span>
           </Card.Meta>
-          <h4 as="i">Previous Dive: {dive} </h4>
+          <h4 as="i">Previous Dive: </h4>
+          <h4 className="padding"> {dive} </h4>
+          <Card.Content extra>
+            <Button basic color="red" onClick={this.handleClick(dive)}>
+              Delete
+            </Button>
+          </Card.Content>
         </Card>)}
-      </Card.Group>
     </Grid.Row>;
     if (this.state.newRow) {
       return (newComp);
@@ -95,7 +111,7 @@ class AddDiveAdmin extends React.Component {
 
   RenderTable() {
     let pic = <Grid.Row centered>
-      <Image
+      <Image Centered
           src={"https://cdn.instructables.com/F3E/ERWV/077EP281UWG/F3EERWV077EP281UWG.LARGE.jpg?auto=webp&fit=bounds"}/>
     </Grid.Row>;
     return (pic);
@@ -251,7 +267,7 @@ class AddDiveAdmin extends React.Component {
     Session.setDefault("totalBT", "");
     let Results =
         <Grid>
-          <Grid.Row centered columns={3} style={{ paddingTop: '25px' }}>
+          <Grid.Row centered columns={4} style={{ paddingTop: '25px' }}>
             <Grid.Row style={{ paddingBottom: '25px' }}>
               <Header style={{ padding: 10 }} as="h4" textAlign="center" as="i">
                 * Developer Notes: Do not use this planner to plan your dives in real life! This is a
@@ -410,7 +426,12 @@ class AddDiveAdmin extends React.Component {
                 </Card>
               </Card.Group>
             </Grid.Row>
+
+          </Grid.Row>
+          <Grid.Row centered>
             { this.state.newRow ? this.LogRow() : null }
+          </Grid.Row>
+          <Grid.Row centered>
             { this.RenderTable() }
           </Grid.Row>
         </Grid>;
