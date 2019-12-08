@@ -66,10 +66,10 @@ class AddDiveAdmin extends React.Component {
   planAnother() {
     let newState = this.state;
     if (Session.get("pressureGroup2") || Session.get("plannedSI") || Session.get("fpressure")) {
-      let newDive = ["Starting Pressure : ", Session.get("pressureGroup2"),
-                    "Depth : ", , Session.get("depth"),
-                    "Surface Interval : ",  Session.get("plannedSI"),
-                    "Ending Pressure Group : ", Session.get("fpressure"), ];
+      let newDive = ["Starting Pressure : ",  Session.get("pgi"), " | ",
+                    " Depth : ", , Session.get("depth"), " | ",
+                    " Surface Interval : ",  Session.get("plannedSI"), " | ",
+                    " Ending Pressure Group : ", Session.get("fpressure"), ];
       newState.newRow = true;
       newState.dives.push(newDive);
     } else {
