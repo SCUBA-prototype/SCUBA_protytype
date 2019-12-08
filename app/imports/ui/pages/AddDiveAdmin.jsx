@@ -66,10 +66,10 @@ class AddDiveAdmin extends React.Component {
   planAnother() {
     let newState = this.state;
     if (Session.get("pressureGroup2") || Session.get("plannedSI") || Session.get("fpressure")) {
-      let newDive = ["Starting Pressure : ", " [ ", Session.get("pgi"), " ] ",
-                    "Depth : ", " [ ", Session.get("depth"), " ] ",
-                    "Surface Interval : ", " [ ",  Session.get("plannedSI"), " ] ",
-                    "Ending Pressure Group : ", " [ ", Session.get("fpressure"), " ] "];
+      let newDive = ["Starting Pressure : ", Session.get("pressureGroup2"),
+                    "Depth : ", , Session.get("depth"),
+                    "Surface Interval : ",  Session.get("plannedSI"),
+                    "Ending Pressure Group : ", Session.get("fpressure"), ];
       newState.newRow = true;
       newState.dives.push(newDive);
     } else {
@@ -90,7 +90,7 @@ class AddDiveAdmin extends React.Component {
 
   LogRow() {
     let newComp = <Grid.Row>
-        {this.state.dives.map((dive) => <Card fluid>
+        {this.state.dives.map((dive, index) => <Card key={index} fluid>
           <Header as="h2" textAlign="center"> Your Dive Log </Header>
           <Card.Meta>
             <span> Results of your previous dive. </span>
@@ -111,7 +111,7 @@ class AddDiveAdmin extends React.Component {
 
   RenderTable() {
     let pic = <Grid.Row centered>
-      <Image Centered
+      <Image centered
           src={"https://cdn.instructables.com/F3E/ERWV/077EP281UWG/F3EERWV077EP281UWG.LARGE.jpg?auto=webp&fit=bounds"}/>
     </Grid.Row>;
     return (pic);
