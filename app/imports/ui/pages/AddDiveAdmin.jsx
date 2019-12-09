@@ -67,7 +67,8 @@ class AddDiveAdmin extends React.Component {
     let newState = this.state;
     if (Session.get("pressureGroup2") || Session.get("plannedSI") || Session.get("fpressure")) {
       let newDive = ["Starting Pressure : ",  Session.get("pgi"), " | ",
-                    " Depth : ", , Session.get("depth"), " | ",
+                    " Depth : ",  Session.get("depth"), " | ",
+                    " Total Bottom Time :", Session.get("totalBT"), " | ",
                     " Surface Interval : ",  Session.get("plannedSI"), " | ",
                     " Ending Pressure Group : ", Session.get("fpressure"), ];
       newState.newRow = true;
